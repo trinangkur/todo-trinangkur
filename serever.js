@@ -1,6 +1,6 @@
 const http = require('http');
 
-const { requestListener } = require('./handlers');
+const { requestListener } = require('./lib/handlers');
 
 const main = (port = 3000) => {
   const server = new http.Server(requestListener);
