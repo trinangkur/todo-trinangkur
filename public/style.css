@@ -1,0 +1,13 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-weight: 200;
+}
+
+#titleBox {
+  height: 20px;
+  width: 100px;
+}
