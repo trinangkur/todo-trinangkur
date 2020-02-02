@@ -1,13 +1,50 @@
 body {
   font-family: sans-serif;
-  text-align: center;
 }
 
 h1 {
   font-weight: 200;
 }
 
+#container {
+  display: flex;
+}
+
 #titleBox {
   height: 20px;
-  width: 100px;
+  width: 180px;
+  border: none;
+  border-bottom: 2px solid rgb(98, 83, 231);
+  outline: none;
+  font-weight: 100;
+  font-size: 20px;
+  padding: 5px 10px;
+  color: rgb(27, 27, 27);
+}
+
+#navigationBar {
+  width: 200px;
+  height: 580px;
+  font-size: 16px;
+  overflow: scroll;
+  margin: 0px;
+  padding: 31px 0px 0px;
+  border: 1px solid rgb(230, 230, 230);
+}
+
+#todoItems {
+  width: 500px;
+  overflow: scroll;
+}
+
+.todoHeading {
+  font-weight: 200;
+  color: gray;
+}
+
+.item {
+  height: 20px;
+  width: 180px;
+  margin: 5px;
+  outline: none;
 }
