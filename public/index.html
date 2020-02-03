@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="../public/style.css" />
-    <script src="../public/js/script.js"></script>
+    <link rel="stylesheet" href="style/style.css" />
+    <script src="js/script.js"></script>
     <title>TODO</title>
   </head>
 
@@ -11,15 +11,23 @@
     <hr />
     <div id="container">
       <div id="navigationBar">
-        <input
-          type="text"
-          name="newTitle"
-          id="titleBox"
-          placeholder="Enter Your Title"
-          autocomplete="off"
-        />
-        <input type="submit" value="Add Title" onclick="addTodoTitle()" />
-        <h2 class="todoHeading highlight" onclick="showTitleItems()">Demo</h2>
+        <div>
+          <input
+            type="text"
+            name="newTitle"
+            id="titleBox"
+            placeholder="Enter Your Title"
+            autocomplete="off"
+            required
+          />
+          <input
+            type="submit"
+            id="addTitleButton"
+            value="Add Title"
+            onclick="addTodoTitle()"
+          />
+        </div>
+        <div id="titleContainer"></div>
       </div>
       <div id="todoItems">
         <input type="text" id="addItem" placeholder="Add Todo Items" />

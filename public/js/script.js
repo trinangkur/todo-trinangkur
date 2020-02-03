@@ -1,22 +1,49 @@
 const highlight = function(item) {
-  document.querySelector('.highlight').classList.remove('highlight');
+  document.querySelector('.highlight') &&
+    document.querySelector('.highlight').classList.remove('highlight');
   item.classList.add('highlight');
 };
 
 const showTitleItems = function() {
   const title = event.target;
   highlight(title);
+  const allItems = document.getElementsByClassName('item');
+  Array.from(allItems).forEach(item => {
+    item.classList.add('hide');
+  });
+  const titleItems = document.getElementsByClassName(title.innerText);
+  Array.from(titleItems).forEach(item => {
+    item.classList.remove('hide');
+  });
+};
+
+const elementValue = selector => {
+  const title = document.querySelector(selector);
+  const name = title.value;
+  title.value = '';
+  return name;
+};
+
+const updateHtml = (selector, html) => {
+  const element = document.querySelector(selector);
+  // const temp = document.createElement('div');
+  // temp.innerHTML = html;
+  // element.innerHTML = temp.firstChild;
+  element.innerHTML = html;
 };
 
 const addTodoTitle = () => {
-  const navigationBar = document.querySelector('#navigationBar');
-  const h2 = document.createElement('h2');
-  const titleHolder = document.getElementById('titleBox');
-  h2.addEventListener('click', showTitleItems);
-  h2.innerText = titleHolder.value;
-  titleHolder.value = '';
-  h2.classList.add('todoHeading');
-  navigationBar.appendChild(h2);
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    console.log(this.responseText);
+    const response = this.responseText;
+    updateHtml('#titleContainer', response);
+  };
+  httpRequest.open('POST', 'addTodoTitle');
+  httpRequest.send(`title=${elementValue('#titleBox')}`);
+  // const h2HTML = `<h2 class="todoHeading" onclick="showTitleItems()">${elementValue(
+  //   '#titleBox'
+  // )}</h2>`;
 };
 
 const mark = function() {
@@ -36,7 +63,6 @@ const addTodoItem = function() {
   itemText.classList.add(document.querySelector('.highlight').innerText);
   itemHolder.value = '';
   todoItemDiv.appendChild(itemText);
-  todoItemDiv.appendChild(document.createElement('hr'));
 };
 
 const main = function() {
