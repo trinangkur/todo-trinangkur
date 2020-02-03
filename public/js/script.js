@@ -5,7 +5,6 @@ const highlight = function(item) {
 
 const showTitleItems = function() {
   const title = event.target;
-  console.log(title);
   highlight(title);
 };
 
@@ -20,15 +19,24 @@ const addTodoTitle = () => {
   navigationBar.appendChild(h2);
 };
 
+const mark = function() {
+  const item = event.target;
+  item.classList.value.includes('mark')
+    ? item.classList.remove('mark')
+    : item.classList.add('mark');
+};
+
 const addTodoItem = function() {
   const todoItemDiv = document.querySelector('#todoItems');
   const itemText = document.createElement('p');
   const itemHolder = document.querySelector('#addItem');
+  itemText.onclick = mark;
   itemText.innerText = itemHolder.value;
   itemText.classList.add('item');
   itemText.classList.add(document.querySelector('.highlight').innerText);
   itemHolder.value = '';
   todoItemDiv.appendChild(itemText);
+  todoItemDiv.appendChild(document.createElement('hr'));
 };
 
 const main = function() {
