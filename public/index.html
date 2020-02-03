@@ -16,15 +16,14 @@
           name="newTitle"
           id="titleBox"
           placeholder="Enter Your Title"
+          autocomplete="off"
         />
         <input type="submit" value="Add Title" onclick="addTodoTitle()" />
         <h2 class="todoHeading highlight" onclick="showTitleItems()">Demo</h2>
       </div>
       <div id="todoItems">
-        <div class="item">
-          <input type="text" id="addItem" placeholder="Add Todo Items" />
-          <input type="submit" value="Add Item" />
-        </div>
+        <input type="text" id="addItem" placeholder="Add Todo Items" />
+        <input type="submit" value="Add Item" onclick="addTodoItem()" />
       </div>
     </div>
   </body>

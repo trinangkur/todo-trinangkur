@@ -14,7 +14,7 @@ h1 {
   height: 20px;
   width: 480px;
   border: none;
-  border-bottom: 2px solid rgb(98, 83, 231);
+  border-bottom: 2px solid black;
   outline: none;
   font-weight: 100;
   font-size: 20px;
@@ -47,9 +47,19 @@ h1 {
 .todoHeading {
   font-weight: 200;
   color: gray;
-  padding-left: 2px;
+  padding-left: 8px;
 }
 
 .highlight {
   font-weight: bolder;
+}
+
+.item {
+  margin-left: 10px;
+  font-size: 20px;
+  color: rgb(40, 40, 40);
+}
+
+.hide {
+  display: none;
 }

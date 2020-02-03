@@ -1,2 +1,3 @@
 __done__ write a todo
 __done__ create page handlers
+__done__ design index.html

@@ -20,6 +20,17 @@ const addTodoTitle = () => {
   navigationBar.appendChild(h2);
 };
 
+const addTodoItem = function() {
+  const todoItemDiv = document.querySelector('#todoItems');
+  const itemText = document.createElement('p');
+  const itemHolder = document.querySelector('#addItem');
+  itemText.innerText = itemHolder.value;
+  itemText.classList.add('item');
+  itemText.classList.add(document.querySelector('.highlight').innerText);
+  itemHolder.value = '';
+  todoItemDiv.appendChild(itemText);
+};
+
 const main = function() {
   console.log('body loaded');
 };
