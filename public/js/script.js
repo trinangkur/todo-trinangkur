@@ -61,10 +61,6 @@ const addTodoTitle = () => {
 };
 
 const mark = function() {
-  // const item = event.target;
-  // item.classList.value.includes('mark')
-  //   ? item.classList.remove('mark')
-  //   : item.classList.add('mark');
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
     TODO = JSON.parse(this.responseText);
