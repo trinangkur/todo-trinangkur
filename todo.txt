@@ -1,4 +1,6 @@
 __done__ write a todo
 __done__ create page handlers
 __done__ design index.html
-__done__ able to mark items
+__done__ should be able add title
+__done__ should be able to add task to each title
+__done__ should be able to mark task as done 
