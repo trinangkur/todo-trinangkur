@@ -65,6 +65,9 @@ h1 {
   padding-left: 8px;
   cursor: pointer;
 }
+.todoHeading:hover {
+  color: black;
+}
 
 .highlight {
   font-weight: bolder;
@@ -78,8 +81,13 @@ h1 {
   padding-bottom: 8px;
   border-bottom: solid 1px gray;
   cursor: pointer;
+  transition: 0.3s;
 }
 
+.item:hover {
+  transition: 0.3s;
+  color: gray;
+}
 .hide {
   display: none;
 }
