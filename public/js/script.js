@@ -6,6 +6,24 @@ const highlight = function(item) {
   item.classList.add('highlight');
 };
 
+const deleteTitle = function(target) {
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    TODO = JSON.parse(this.responseText);
+    updateHtml('#titleContainer', formatTitleHtml);
+    const firstHeading = document.querySelector('#titleContainer')
+      .firstElementChild;
+    if (!firstHeading) {
+      updateHtml('#rightBar', clearItems);
+      return;
+    }
+    highlight(firstHeading.firstElementChild);
+    updateHtml('#todoItems', formatItems);
+  };
+  httpRequest.open('POST', 'deleteTodoTitle');
+  httpRequest.send(`titleId=${target.id}`);
+};
+
 const showItemAdder = () =>
   document.querySelector('#itemAdder').classList.remove('hide');
 
@@ -21,7 +39,7 @@ const formatTitleHtml = json =>
       key =>
         `<div class="heading" onclick="showTitleItems(this)" id="${json[key].id}">
           <h2 class="todoHeading" id="${json[key].id}">${json[key].name}</h2>
-          <img src="resource/cross.png" class="img">
+          <img src="resource/cross.png" class="img" id="${json[key].id}" onclick="deleteTitle(this)">
         </div>`
     )
     .join('');
@@ -43,6 +61,12 @@ const formatItems = json => {
     .join('');
 };
 
+const clearItems = () => `<div id="todoItems"></div>
+<div id="itemAdder" class="hide">
+  <input type="text" id="addItem" placeholder="Add Todo Items" />
+  <input type="submit" value="Add Item" onclick="addTodoItem()" />
+</div>`;
+
 const updateHtml = (selector, formatter) => {
   const element = document.querySelector(selector);
   element.innerHTML = formatter(TODO);
@@ -54,10 +78,13 @@ const addTodoTitle = () => {
   httpRequest.onload = function() {
     TODO = JSON.parse(this.responseText);
     updateHtml('#titleContainer', formatTitleHtml);
-    highlight(
-      document.querySelector('#titleContainer').firstElementChild
-        .firstElementChild
-    );
+    const firstHeading = document.querySelector('#titleContainer')
+      .firstElementChild;
+    if (!firstHeading) {
+      updateHtml('#rightBar', clearItems);
+      return;
+    }
+    highlight(firstHeading.firstElementChild);
     updateHtml('#todoItems', formatItems);
   };
   httpRequest.open('POST', 'addTodoTitle');
@@ -104,12 +131,14 @@ const main = function() {
   httpRequest.onload = function() {
     TODO = JSON.parse(this.responseText);
     updateHtml('#titleContainer', formatTitleHtml);
-    highlight(
-      document.querySelector('#titleContainer').firstElementChild
-        .firstElementChild
-    );
+    const firstHeading = document.querySelector('#titleContainer')
+      .firstElementChild;
+    if (!firstHeading) {
+      updateHtml('#rightBar', clearItems);
+      return;
+    }
+    highlight(firstHeading.firstElementChild);
     updateHtml('#todoItems', formatItems);
-    showItemAdder();
   };
   httpRequest.open('GET', 'getTodoList');
   httpRequest.send();

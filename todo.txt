@@ -4,3 +4,4 @@ __done__ design index.html
 __done__ should be able add title
 __done__ should be able to add task to each title
 __done__ should be able to mark task as done 
+__done__ should be able to delete one whole title
