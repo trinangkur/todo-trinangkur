@@ -1,49 +1,57 @@
+let TODO;
+
 const highlight = function(item) {
   document.querySelector('.highlight') &&
     document.querySelector('.highlight').classList.remove('highlight');
   item.classList.add('highlight');
 };
 
-const showTitleItems = function() {
-  const title = event.target;
-  highlight(title);
-  const allItems = document.getElementsByClassName('item');
-  Array.from(allItems).forEach(item => {
-    item.classList.add('hide');
-  });
-  const titleItems = document.getElementsByClassName(title.innerText);
-  Array.from(titleItems).forEach(item => {
-    item.classList.remove('hide');
-  });
+const showItemAdder = () =>
+  document.querySelector('#itemAdder').classList.remove('hide');
+
+const resetValue = selector => (document.querySelector(selector).value = '');
+
+const elementValue = selector => document.querySelector(selector).value;
+
+const formatTitleHtml = json =>
+  json
+    .slice()
+    .reverse()
+    .map(
+      title =>
+        `<h2 class="todoHeading" id="${title.id}" onclick="showTitleItems()">${title.name}</h2>`
+    )
+    .join('');
+
+const formatItems = json => {
+  const currentTitle = document.querySelector('.highlight');
+  const title = json.find(title => currentTitle.id === title.id);
+  return title.tasks
+    .map(
+      task =>
+        `<p class="item ${title.id}" id="${task.id}" onclick=mark()>${task.text}<p/>`
+    )
+    .join('');
 };
 
-const elementValue = selector => {
-  const title = document.querySelector(selector);
-  const name = title.value;
-  title.value = '';
-  return name;
-};
-
-const updateHtml = (selector, html) => {
+const updateHtml = (selector, formatter) => {
   const element = document.querySelector(selector);
-  // const temp = document.createElement('div');
-  // temp.innerHTML = html;
-  // element.innerHTML = temp.firstChild;
-  element.innerHTML = html;
+  element.innerHTML = formatter(TODO);
 };
 
 const addTodoTitle = () => {
+  if (!elementValue('#titleBox')) return;
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
-    console.log(this.responseText);
-    const response = this.responseText;
-    updateHtml('#titleContainer', response);
+    TODO = JSON.parse(this.responseText);
+    updateHtml('#titleContainer', formatTitleHtml);
+    highlight(document.querySelector('#titleContainer').firstChild);
+    updateHtml('#todoItems', formatItems);
   };
   httpRequest.open('POST', 'addTodoTitle');
   httpRequest.send(`title=${elementValue('#titleBox')}`);
-  // const h2HTML = `<h2 class="todoHeading" onclick="showTitleItems()">${elementValue(
-  //   '#titleBox'
-  // )}</h2>`;
+  resetValue('#titleBox');
+  showItemAdder();
 };
 
 const mark = function() {
@@ -53,16 +61,26 @@ const mark = function() {
     : item.classList.add('mark');
 };
 
+const showTitleItems = function() {
+  const title = event.target;
+  highlight(title);
+  updateHtml('#todoItems', formatItems);
+};
+
+const elementId = selector => document.querySelector(selector).id;
+
 const addTodoItem = function() {
-  const todoItemDiv = document.querySelector('#todoItems');
-  const itemText = document.createElement('p');
-  const itemHolder = document.querySelector('#addItem');
-  itemText.onclick = mark;
-  itemText.innerText = itemHolder.value;
-  itemText.classList.add('item');
-  itemText.classList.add(document.querySelector('.highlight').innerText);
-  itemHolder.value = '';
-  todoItemDiv.appendChild(itemText);
+  if (!elementValue('#addItem')) return;
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    TODO = JSON.parse(this.responseText);
+    updateHtml('#todoItems', formatItems);
+  };
+  httpRequest.open('POST', 'addItemToTitle');
+  httpRequest.send(
+    `titleId=${elementId('.highlight')}&itemText=${elementValue('#addItem')}`
+  );
+  resetValue('#addItem');
 };
 
 const main = function() {
