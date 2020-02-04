@@ -1,9 +1,70 @@
 let TODO;
 
+const showItemAdder = () =>
+  document.querySelector('#itemAdder').classList.remove('hide');
+
+const resetValue = selector => (document.querySelector(selector).value = '');
+
+const elementId = selector => document.querySelector(selector).id;
+
+const elementValue = selector => document.querySelector(selector).value;
+
 const highlight = function(item) {
   document.querySelector('.highlight') &&
     document.querySelector('.highlight').classList.remove('highlight');
   item.classList.add('highlight');
+};
+
+const updateHtml = (selector, formatter) => {
+  const element = document.querySelector(selector);
+  element.innerHTML = formatter(TODO);
+};
+
+const clearItems = () => `<div id="itemAdder" class="hide">
+  <input type="text" id="addItem" placeholder="Add Todo Items" />
+  <input type="submit" id="addItemButton" value="Add Item" onclick="addTodoItem()" />
+</div>
+<div id="todoItems"></div>`;
+
+const getTitleHtml = function(json, key) {
+  return `<div class="heading" onclick="showTitleItems(this)" id="${json[key].id}">
+  <h2 class="todoHeading" id="${json[key].id}">${json[key].name}</h2>
+  <img src="resource/cross.png" class="img" id="${json[key].id}" onclick="deleteTitle(this)"/>
+</div>`;
+};
+
+const formatTitleHtml = json => {
+  const keys = Object.keys(json)
+    .slice()
+    .reverse();
+  return keys.map(getTitleHtml.bind(null, json)).join('');
+};
+
+const getClassIfMarked = status => {
+  return status ? ' mark' : '';
+};
+
+const getImageSrc = status => {
+  return status ? 'resource/checked.png' : 'resource/unchecked.png';
+};
+
+const getItemsHtml = function(tasks, key) {
+  return `<div class="itemClass" >
+        <p class="item ${getClassIfMarked(tasks[key].status)}" 
+          id="${tasks[key].id}" onclick="mark()">
+        <img src="${getImageSrc(tasks[key].status)}" class="marker" id="${
+    tasks[key].id
+  }"/>${tasks[key].text}</p>
+      <img src="resource/cross.png" class="img" id="${tasks[key].id}"
+          onclick="deleteItem()"/></div>`;
+};
+
+const formatItems = json => {
+  const title = json[document.querySelector('.highlight').id];
+  const tasks = title.tasks;
+  return Object.keys(tasks)
+    .map(getItemsHtml.bind(null, tasks))
+    .join('');
 };
 
 const loadTitlesAndItem = function() {
@@ -27,33 +88,6 @@ const deleteTitle = function(target) {
   httpRequest.send(`titleId=${target.id}`);
 };
 
-const showItemAdder = () =>
-  document.querySelector('#itemAdder').classList.remove('hide');
-
-const resetValue = selector => (document.querySelector(selector).value = '');
-
-const elementValue = selector => document.querySelector(selector).value;
-
-const formatTitleHtml = json =>
-  Object.keys(json)
-    .slice()
-    .reverse()
-    .map(
-      key =>
-        `<div class="heading" onclick="showTitleItems(this)" id="${json[key].id}">
-          <h2 class="todoHeading" id="${json[key].id}">${json[key].name}</h2>
-          <img src="resource/cross.png" class="img" id="${json[key].id}" onclick="deleteTitle(this)"/>
-        </div>`
-    )
-    .join('');
-
-const getClassIfMarked = status => {
-  return status ? ' mark' : '';
-};
-
-const getImageSrc = status => {
-  return status ? 'resource/checked.png' : 'resource/unchecked.png';
-};
 const deleteItem = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
@@ -64,44 +98,6 @@ const deleteItem = function() {
   httpRequest.send(
     `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
   );
-};
-
-const formatItems = json => {
-  const title = json[document.querySelector('.highlight').id];
-  const tasks = title.tasks;
-  return Object.keys(tasks)
-    .map(
-      key =>
-        `<div class="itemClass" >
-        <p
-          class="item ${title.id}${getClassIfMarked(tasks[key].status)}" 
-          id="${tasks[key].id}" 
-          onclick="mark()"
-        >
-        <img src="${getImageSrc(tasks[key].status)}" class="marker" id="${
-          tasks[key].id
-        }"/>${tasks[key].text}
-        </p>
-        <img
-          src="resource/cross.png"
-          class="img"
-          id="${tasks[key].id}"
-          onclick="deleteItem()"
-        />
-      </div>`
-    )
-    .join('');
-};
-
-const clearItems = () => `<div id="todoItems"></div>
-<div id="itemAdder" class="hide">
-  <input type="text" id="addItem" placeholder="Add Todo Items" />
-  <input type="submit" value="Add Item" onclick="addTodoItem()" />
-</div>`;
-
-const updateHtml = (selector, formatter) => {
-  const element = document.querySelector(selector);
-  element.innerHTML = formatter(TODO);
 };
 
 const addTodoTitle = () => {
@@ -129,8 +125,6 @@ const showTitleItems = function(target) {
   highlight(target.firstElementChild);
   updateHtml('#todoItems', formatItems);
 };
-
-const elementId = selector => document.querySelector(selector).id;
 
 const addTodoItem = function() {
   if (!elementValue('#addItem')) return;
