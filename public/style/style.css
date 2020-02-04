@@ -64,10 +64,17 @@ h1 {
   color: gray;
   padding-left: 8px;
   cursor: pointer;
+  overflow: scroll;
 }
 
 .highlight {
   font-weight: bolder;
+}
+
+.itemClass {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .item {
@@ -75,30 +82,38 @@ h1 {
   margin-left: 10px;
   font-size: 20px;
   color: rgb(40, 40, 40);
-  padding-bottom: 8px;
-  border-bottom: solid 1px gray;
-  transition: 0.3s;
 }
 
-.item:hover {
-  transition: 0.3s;
-  color: gray;
+.itemClass:hover {
+  background-color: snow;
 }
+
+.itemClass:hover > img {
+  display: block;
+}
+
 .hide {
   display: none;
 }
 
 .mark {
   text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.marker {
+  height: 15px;
+  width: auto;
+  padding-right: 8px;
 }
 
 .img {
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 20px;
   right: 0;
   height: 15px;
   width: auto;
-  display: block;
+  display: none;
 }
 
 .heading {
@@ -109,4 +124,8 @@ h1 {
 
 .heading:hover {
   background-color: rgb(230, 230, 230);
+}
+
+.heading:hover > img {
+  display: block;
 }

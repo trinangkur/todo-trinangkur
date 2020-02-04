@@ -17,6 +17,7 @@ const loadTitlesAndItem = function() {
   }
   highlight(firstHeading.firstElementChild);
   updateHtml('#todoItems', formatItems);
+  showItemAdder();
 };
 
 const deleteTitle = function(target) {
@@ -41,7 +42,7 @@ const formatTitleHtml = json =>
       key =>
         `<div class="heading" onclick="showTitleItems(this)" id="${json[key].id}">
           <h2 class="todoHeading" id="${json[key].id}">${json[key].name}</h2>
-          <img src="resource/cross.png" class="img" id="${json[key].id}" onclick="deleteTitle(this)">
+          <img src="resource/cross.png" class="img" id="${json[key].id}" onclick="deleteTitle(this)"/>
         </div>`
     )
     .join('');
@@ -50,15 +51,44 @@ const getClassIfMarked = status => {
   return status ? ' mark' : '';
 };
 
+const getImageSrc = status => {
+  return status ? 'resource/checked.png' : 'resource/unchecked.png';
+};
+const deleteItem = function() {
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    TODO = JSON.parse(this.responseText);
+    updateHtml('#todoItems', formatItems);
+  };
+  httpRequest.open('POST', 'deleteItem');
+  httpRequest.send(
+    `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
+  );
+};
+
 const formatItems = json => {
   const title = json[document.querySelector('.highlight').id];
   const tasks = title.tasks;
   return Object.keys(tasks)
     .map(
       key =>
-        `<p class="item ${title.id}${getClassIfMarked(
-          tasks[key].status
-        )}" id="${tasks[key].id}" onclick=mark()>${tasks[key].text}<p/>`
+        `<div class="itemClass" >
+        <p
+          class="item ${title.id}${getClassIfMarked(tasks[key].status)}" 
+          id="${tasks[key].id}" 
+          onclick="mark()"
+        >
+        <img src="${getImageSrc(tasks[key].status)}" class="marker" id="${
+          tasks[key].id
+        }"/>${tasks[key].text}
+        </p>
+        <img
+          src="resource/cross.png"
+          class="img"
+          id="${tasks[key].id}"
+          onclick="deleteItem()"
+        />
+      </div>`
     )
     .join('');
 };
@@ -81,7 +111,6 @@ const addTodoTitle = () => {
   httpRequest.open('POST', 'addTodoTitle');
   httpRequest.send(`title=${elementValue('#titleBox')}`);
   resetValue('#titleBox');
-  showItemAdder();
 };
 
 const mark = function() {
