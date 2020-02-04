@@ -6,20 +6,22 @@ const highlight = function(item) {
   item.classList.add('highlight');
 };
 
+const loadTitlesAndItem = function() {
+  TODO = JSON.parse(this.responseText);
+  updateHtml('#titleContainer', formatTitleHtml);
+  const firstHeading = document.querySelector('#titleContainer')
+    .firstElementChild;
+  if (!firstHeading) {
+    updateHtml('#rightBar', clearItems);
+    return;
+  }
+  highlight(firstHeading.firstElementChild);
+  updateHtml('#todoItems', formatItems);
+};
+
 const deleteTitle = function(target) {
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    TODO = JSON.parse(this.responseText);
-    updateHtml('#titleContainer', formatTitleHtml);
-    const firstHeading = document.querySelector('#titleContainer')
-      .firstElementChild;
-    if (!firstHeading) {
-      updateHtml('#rightBar', clearItems);
-      return;
-    }
-    highlight(firstHeading.firstElementChild);
-    updateHtml('#todoItems', formatItems);
-  };
+  httpRequest.onload = loadTitlesAndItem;
   httpRequest.open('POST', 'deleteTodoTitle');
   httpRequest.send(`titleId=${target.id}`);
 };
@@ -75,18 +77,7 @@ const updateHtml = (selector, formatter) => {
 const addTodoTitle = () => {
   if (!elementValue('#titleBox')) return;
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    TODO = JSON.parse(this.responseText);
-    updateHtml('#titleContainer', formatTitleHtml);
-    const firstHeading = document.querySelector('#titleContainer')
-      .firstElementChild;
-    if (!firstHeading) {
-      updateHtml('#rightBar', clearItems);
-      return;
-    }
-    highlight(firstHeading.firstElementChild);
-    updateHtml('#todoItems', formatItems);
-  };
+  httpRequest.onload = loadTitlesAndItem;
   httpRequest.open('POST', 'addTodoTitle');
   httpRequest.send(`title=${elementValue('#titleBox')}`);
   resetValue('#titleBox');
@@ -128,18 +119,7 @@ const addTodoItem = function() {
 
 const main = function() {
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    TODO = JSON.parse(this.responseText);
-    updateHtml('#titleContainer', formatTitleHtml);
-    const firstHeading = document.querySelector('#titleContainer')
-      .firstElementChild;
-    if (!firstHeading) {
-      updateHtml('#rightBar', clearItems);
-      return;
-    }
-    highlight(firstHeading.firstElementChild);
-    updateHtml('#todoItems', formatItems);
-  };
+  httpRequest.onload = loadTitlesAndItem;
   httpRequest.open('GET', 'getTodoList');
   httpRequest.send();
 };
