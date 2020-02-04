@@ -14,22 +14,28 @@ const resetValue = selector => (document.querySelector(selector).value = '');
 const elementValue = selector => document.querySelector(selector).value;
 
 const formatTitleHtml = json =>
-  json
+  Object.keys(json)
     .slice()
     .reverse()
     .map(
-      title =>
-        `<h2 class="todoHeading" id="${title.id}" onclick="showTitleItems()">${title.name}</h2>`
+      key =>
+        `<h2 class="todoHeading" id="${json[key].id}" onclick="showTitleItems()">${json[key].name}</h2>`
     )
     .join('');
 
+const getClassIfMarked = status => {
+  return status ? ' mark' : '';
+};
+
 const formatItems = json => {
-  const currentTitle = document.querySelector('.highlight');
-  const title = json.find(title => currentTitle.id === title.id);
-  return title.tasks
+  const title = json[document.querySelector('.highlight').id];
+  const tasks = title.tasks;
+  return Object.keys(tasks)
     .map(
-      task =>
-        `<p class="item ${title.id}" id="${task.id}" onclick=mark()>${task.text}<p/>`
+      key =>
+        `<p class="item ${title.id}${getClassIfMarked(
+          tasks[key].status
+        )}" id="${tasks[key].id}" onclick=mark()>${tasks[key].text}<p/>`
     )
     .join('');
 };
@@ -55,10 +61,19 @@ const addTodoTitle = () => {
 };
 
 const mark = function() {
-  const item = event.target;
-  item.classList.value.includes('mark')
-    ? item.classList.remove('mark')
-    : item.classList.add('mark');
+  // const item = event.target;
+  // item.classList.value.includes('mark')
+  //   ? item.classList.remove('mark')
+  //   : item.classList.add('mark');
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    TODO = JSON.parse(this.responseText);
+    updateHtml('#todoItems', formatItems);
+  };
+  httpRequest.open('POST', 'markItem');
+  httpRequest.send(
+    `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
+  );
 };
 
 const showTitleItems = function() {
