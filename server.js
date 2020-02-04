@@ -1,5 +1,6 @@
 const http = require('http');
 
+process.env['DATA_STORE'] = `${__dirname}/lib/todoList.json`;
 const { requestListener } = require('./lib/handlers');
 
 const main = (port = 3000) => {

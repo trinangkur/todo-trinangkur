@@ -19,7 +19,10 @@ const formatTitleHtml = json =>
     .reverse()
     .map(
       key =>
-        `<h2 class="todoHeading" id="${json[key].id}" onclick="showTitleItems()">${json[key].name}</h2>`
+        `<div class="heading" onclick="showTitleItems(this)" id="${json[key].id}">
+          <h2 class="todoHeading" id="${json[key].id}">${json[key].name}</h2>
+          <img src="resource/cross.png" class="img">
+        </div>`
     )
     .join('');
 
@@ -51,7 +54,10 @@ const addTodoTitle = () => {
   httpRequest.onload = function() {
     TODO = JSON.parse(this.responseText);
     updateHtml('#titleContainer', formatTitleHtml);
-    highlight(document.querySelector('#titleContainer').firstChild);
+    highlight(
+      document.querySelector('#titleContainer').firstElementChild
+        .firstElementChild
+    );
     updateHtml('#todoItems', formatItems);
   };
   httpRequest.open('POST', 'addTodoTitle');
@@ -72,9 +78,8 @@ const mark = function() {
   );
 };
 
-const showTitleItems = function() {
-  const title = event.target;
-  highlight(title);
+const showTitleItems = function(target) {
+  highlight(target.firstElementChild);
   updateHtml('#todoItems', formatItems);
 };
 
@@ -99,7 +104,10 @@ const main = function() {
   httpRequest.onload = function() {
     TODO = JSON.parse(this.responseText);
     updateHtml('#titleContainer', formatTitleHtml);
-    highlight(document.querySelector('#titleContainer').firstChild);
+    highlight(
+      document.querySelector('#titleContainer').firstElementChild
+        .firstElementChild
+    );
     updateHtml('#todoItems', formatItems);
     showItemAdder();
   };
