@@ -95,5 +95,14 @@ const addTodoItem = function() {
 };
 
 const main = function() {
-  console.log('body loaded');
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    TODO = JSON.parse(this.responseText);
+    updateHtml('#titleContainer', formatTitleHtml);
+    highlight(document.querySelector('#titleContainer').firstChild);
+    updateHtml('#todoItems', formatItems);
+    showItemAdder();
+  };
+  httpRequest.open('GET', 'getTodoList');
+  httpRequest.send();
 };
