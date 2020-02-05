@@ -20,7 +20,7 @@ describe('Home Page', function() {
 });
 
 describe('GET Todo', function() {
-  it('should give home page / path', function(done) {
+  it('should give 200 and json', function(done) {
     request(requestListener)
       .get('/getTodoList')
       .set('Accept', '*/*')
@@ -28,8 +28,17 @@ describe('GET Todo', function() {
   });
 });
 
+describe('GET bad', function() {
+  it('should give 404', function(done) {
+    request(requestListener)
+      .get('/bad')
+      .set('Accept', '*/*')
+      .expect(404, done);
+  });
+});
+
 describe('POST addTodoTitle', function() {
-  it('should give home page / path', function(done) {
+  it('should give 200 as status code and will give json back', function(done) {
     request(requestListener)
       .post('/addTodoTitle')
       .send(`title=hallo`)
@@ -38,8 +47,8 @@ describe('POST addTodoTitle', function() {
   });
 });
 
-describe('funcName', function() {
-  it('should give home page / path', function(done) {
+describe('POST mark item', function() {
+  it('should give mark one item', function(done) {
     request(requestListener)
       .post('/markItem')
       .send('titleId=t1580877440369&itemId=i1580877444596')
@@ -47,8 +56,8 @@ describe('funcName', function() {
   });
 });
 
-describe('funcName', function() {
-  it('should give home page / path', function(done) {
+describe('POST addItemToTitle', function() {
+  it('should give 200 status code', function(done) {
     request(requestListener)
       .post('/addItemToTitle')
       .send('titleId=t1580877440369&itemText=hallo')
@@ -56,8 +65,8 @@ describe('funcName', function() {
   });
 });
 
-describe('funcName', function() {
-  it('should give home page / path', function(done) {
+describe('POST deleteItem', function() {
+  it('should give 200 status code', function(done) {
     request(requestListener)
       .post('/deleteItem')
       .send('titleId=t1580877440369&itemId=i1580877444596')
@@ -65,8 +74,8 @@ describe('funcName', function() {
   });
 });
 
-describe('funcName', function() {
-  it('should give home page / path', function(done) {
+describe('POST deleteTodoTitle', function() {
+  it('should give 200 status code', function(done) {
     request(requestListener)
       .post('/deleteTodoTitle')
       .send('titleId=t1580877440369')
