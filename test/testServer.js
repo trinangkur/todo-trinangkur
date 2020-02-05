@@ -50,6 +50,15 @@ describe('funcName', function() {
 describe('funcName', function() {
   it('should give home page / path', function(done) {
     request(requestListener)
+      .post('/addItemToTitle')
+      .send('titleId=t1580877440369&itemText=hallo')
+      .expect(200, done);
+  });
+});
+
+describe('funcName', function() {
+  it('should give home page / path', function(done) {
+    request(requestListener)
       .post('/deleteItem')
       .send('titleId=t1580877440369&itemId=i1580877444596')
       .expect(200, done);
@@ -60,7 +69,7 @@ describe('funcName', function() {
   it('should give home page / path', function(done) {
     request(requestListener)
       .post('/deleteTodoTitle')
-      .send('titleId=t1580877440369&itemId=i1580877444596')
+      .send('titleId=t1580877440369')
       .expect(200, done);
   });
   after(() => {
