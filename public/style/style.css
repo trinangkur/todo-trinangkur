@@ -15,7 +15,7 @@ h1 {
   height: 20px;
   width: 280px;
   border: none;
-  border-bottom: 2px solid deepskyblue;
+  border-bottom: 2px solid palevioletred;
   outline: none;
   font-weight: 100;
   font-size: 20px;
@@ -50,7 +50,7 @@ h1 {
   margin: 5px;
   outline: none;
   border: none;
-  border-bottom: 2px solid palevioletred;
+  border-bottom: 2px solid deepskyblue;
   outline: none;
   font-weight: 100;
   padding: 5px 10px;
@@ -112,7 +112,7 @@ h1 {
 }
 
 .itemClass:hover {
-  background-color: snow;
+  background-color: lightcyan;
 }
 
 .itemClass:hover > img {
@@ -150,7 +150,7 @@ h1 {
 }
 
 .heading:hover {
-  background-color: rgb(230, 230, 230);
+  background-color: snow;
 }
 
 .heading:hover > img {
