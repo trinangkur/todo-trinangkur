@@ -3,7 +3,9 @@ const todoCollection = new TodoCollection();
 const showItemAdder = () =>
   document.querySelector('#itemAdder').classList.remove('hide');
 
-const resetValue = selector => (document.querySelector(selector).value = '');
+const resetValue = selector => {
+  document.querySelector(selector).value = '';
+};
 
 const elementId = selector => document.querySelector(selector).id;
 
@@ -100,7 +102,9 @@ const deleteItem = function() {
 };
 
 const addTodoTitle = () => {
-  if (!elementValue('#titleBox')) return;
+  if (!elementValue('#titleBox')) {
+    return;
+  }
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = loadTitlesAndItem;
   httpRequest.open('POST', 'addTodoTitle');

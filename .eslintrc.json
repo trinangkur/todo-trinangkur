@@ -47,7 +47,6 @@
     "no-implicit-globals": "error",
     "prefer-const": "error",
     "no-process-exit": "error",
-    "no-process-env": "error",
     "no-return-assign": "error",
     "no-useless-return": "error",
     "max-depth": "error",
@@ -79,6 +78,7 @@
     {
       "files": ["public/js/*.js"],
       "rules": {
+        "no-undef": "off",
         "max-len": "warn",
         "no-magic-numbers": "off",
         "max-statements": "off",
