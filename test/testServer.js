@@ -3,7 +3,10 @@ const fs = require('fs');
 
 fs.writeFileSync(
   `${__dirname}/testTodoList.json`,
-  '{"t1580877440369":{"name":"hey","id":"t1580877440369","tasks":{"i1580877444596":{"id":"i1580877444596","text":"how are you?","status":false}}}}'
+  `{"t1580877440369":
+  {"name":"hey","id":"t1580877440369","tasks":
+  {"i1580877444596":
+  {"id":"i1580877444596","text":"how are you?","status":false}}}}`
 );
 const { requestListener } = require('../lib/handlers');
 
@@ -41,7 +44,7 @@ describe('POST addTodoTitle', function() {
   it('should give 200 as status code and will give json back', function(done) {
     request(requestListener)
       .post('/addTodoTitle')
-      .send(`title=hallo`)
+      .send('title=hallo')
       .set('Accept', '*/*')
       .expect(200, done);
   });

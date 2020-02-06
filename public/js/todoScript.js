@@ -52,9 +52,8 @@ const getItemsHtml = function(tasks, key) {
   return `<div class="itemClass" >
         <p class="item ${getClassIfMarked(tasks[key].status)}" 
           id="${tasks[key].id}" onclick="mark()">
-        <img src="${getImageSrc(tasks[key].status)}" class="marker" id="${
-    tasks[key].id
-  }"/>${tasks[key].text}</p>
+        <img src="${getImageSrc(tasks[key].status)}" class="marker" 
+        id="${tasks[key].id}"/>${tasks[key].text}</p>
       <img src="resource/cross.png" class="img" id="${tasks[key].id}"
           onclick="deleteItem()"/></div>`;
 };
@@ -127,7 +126,9 @@ const showTitleItems = function(target) {
 };
 
 const addTodoItem = function() {
-  if (!elementValue('#addItem')) return;
+  if (!elementValue('#addItem')) {
+    return;
+  }
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
     todoCollection.update(JSON.parse(this.responseText));
