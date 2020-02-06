@@ -1,4 +1,4 @@
-let TODO;
+const todoCollection = new TodoCollection();
 
 const showItemAdder = () =>
   document.querySelector('#itemAdder').classList.remove('hide');
@@ -17,7 +17,7 @@ const highlight = function(item) {
 
 const updateHtml = (selector, formatter) => {
   const element = document.querySelector(selector);
-  element.innerHTML = formatter(TODO);
+  element.innerHTML = formatter(todoCollection.list);
 };
 
 const clearItems = () => `<div id="itemAdder" class="hide">
@@ -68,7 +68,7 @@ const formatItems = json => {
 };
 
 const loadTitlesAndItem = function() {
-  TODO = JSON.parse(this.responseText);
+  todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#titleContainer', formatTitleHtml);
   const firstHeading = document.querySelector('#titleContainer')
     .firstElementChild;
@@ -91,7 +91,7 @@ const deleteTitle = function(target) {
 const deleteItem = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
-    TODO = JSON.parse(this.responseText);
+    todoCollection.update(JSON.parse(this.responseText));
     updateHtml('#todoItems', formatItems);
   };
   httpRequest.open('POST', 'deleteItem');
@@ -112,7 +112,7 @@ const addTodoTitle = () => {
 const mark = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
-    TODO = JSON.parse(this.responseText);
+    todoCollection.update(JSON.parse(this.responseText));
     updateHtml('#todoItems', formatItems);
   };
   httpRequest.open('POST', 'markItem');
@@ -130,7 +130,7 @@ const addTodoItem = function() {
   if (!elementValue('#addItem')) return;
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
-    TODO = JSON.parse(this.responseText);
+    todoCollection.update(JSON.parse(this.responseText));
     updateHtml('#todoItems', formatItems);
   };
   httpRequest.open('POST', 'addItemToTitle');

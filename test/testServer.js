@@ -14,7 +14,7 @@ describe('Home Page', function() {
       .set('Accept', '*/*')
       .expect(200)
       .expect('Content-Type', 'text/html')
-      .expect('Content-Length', '1111')
+      .expect('Content-Length', '1160')
       .expect(/TODO/, done);
   });
 });
