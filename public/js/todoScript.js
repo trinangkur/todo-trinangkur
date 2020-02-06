@@ -17,9 +17,9 @@ const highlight = function(item) {
   item.classList.add('highlight');
 };
 
-const updateHtml = (selector, formatter) => {
+const updateHtml = (selector, html) => {
   const element = document.querySelector(selector);
-  element.innerHTML = formatter(todoCollection.list);
+  element.innerHTML = html;
 };
 
 const clearItems = () => `<div id="itemAdder" class="hide">
@@ -29,59 +29,17 @@ const clearItems = () => `<div id="itemAdder" class="hide">
 </div>
 <div id="todoItems"></div>`;
 
-const getTitleHtml = function(json, key) {
-  return `<div class="heading" onclick="showTitleItems(this)" 
-  id="${json[key].id}">
-  <h2 class="todoHeading" id="${json[key].id}">${json[key].name}</h2>
-  <img src="resource/cross.png" class="img" 
-  id="${json[key].id}" onclick="deleteTitle(this)"/>
-</div>`;
-};
-
-const formatTitleHtml = json => {
-  const keys = Object.keys(json)
-    .slice()
-    .reverse();
-  return keys.map(getTitleHtml.bind(null, json)).join('');
-};
-
-const getClassIfMarked = status => {
-  return status ? ' mark' : '';
-};
-
-const getImageSrc = status => {
-  return status ? 'resource/checked.png' : 'resource/unchecked.png';
-};
-
-const getItemsHtml = function(tasks, key) {
-  return `<div class="itemClass" >
-        <p class="item ${getClassIfMarked(tasks[key].status)}" 
-          id="${tasks[key].id}" onclick="mark()">
-        <img src="${getImageSrc(tasks[key].status)}" class="marker" 
-        id="${tasks[key].id}"/>${tasks[key].text}</p>
-      <img src="resource/cross.png" class="img" id="${tasks[key].id}"
-          onclick="deleteItem()"/></div>`;
-};
-
-const formatItems = json => {
-  const title = json[document.querySelector('.highlight').id];
-  const tasks = title.tasks;
-  return Object.keys(tasks)
-    .map(getItemsHtml.bind(null, tasks))
-    .join('');
-};
-
 const loadTitlesAndItem = function() {
   todoCollection.update(JSON.parse(this.responseText));
-  updateHtml('#titleContainer', formatTitleHtml);
+  updateHtml('#titleContainer', todoCollection.formatTitleHtml());
   const firstHeading = document.querySelector('#titleContainer')
     .firstElementChild;
   if (!firstHeading) {
-    updateHtml('#rightBar', clearItems);
+    updateHtml('#rightBar', clearItems());
     return;
   }
   highlight(firstHeading.firstElementChild);
-  updateHtml('#todoItems', formatItems);
+  updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
   showItemAdder();
 };
 
@@ -96,7 +54,10 @@ const deleteItem = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
     todoCollection.update(JSON.parse(this.responseText));
-    updateHtml('#todoItems', formatItems);
+    updateHtml(
+      '#todoItems',
+      todoCollection.formatItems(elementId('.highlight'))
+    );
   };
   httpRequest.open('POST', 'deleteItem');
   httpRequest.send(
@@ -119,7 +80,10 @@ const mark = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
     todoCollection.update(JSON.parse(this.responseText));
-    updateHtml('#todoItems', formatItems);
+    updateHtml(
+      '#todoItems',
+      todoCollection.formatItems(elementId('.highlight'))
+    );
   };
   httpRequest.open('POST', 'markItem');
   httpRequest.send(
@@ -129,7 +93,7 @@ const mark = function() {
 
 const showTitleItems = function(target) {
   highlight(target.firstElementChild);
-  updateHtml('#todoItems', formatItems);
+  updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
 };
 
 const addTodoItem = function() {
@@ -139,7 +103,10 @@ const addTodoItem = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
     todoCollection.update(JSON.parse(this.responseText));
-    updateHtml('#todoItems', formatItems);
+    updateHtml(
+      '#todoItems',
+      todoCollection.formatItems(elementId('.highlight'))
+    );
   };
   httpRequest.open('POST', 'addItemToTitle');
   httpRequest.send(
