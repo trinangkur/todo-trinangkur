@@ -24,14 +24,17 @@ const updateHtml = (selector, formatter) => {
 
 const clearItems = () => `<div id="itemAdder" class="hide">
   <input type="text" id="addItem" placeholder="Add Todo Items" />
-  <input type="submit" id="addItemButton" value="Add Item" onclick="addTodoItem()" />
+  <input type="submit" id="addItemButton" value="Add Item" 
+  onclick="addTodoItem()" />
 </div>
 <div id="todoItems"></div>`;
 
 const getTitleHtml = function(json, key) {
-  return `<div class="heading" onclick="showTitleItems(this)" id="${json[key].id}">
+  return `<div class="heading" onclick="showTitleItems(this)" 
+  id="${json[key].id}">
   <h2 class="todoHeading" id="${json[key].id}">${json[key].name}</h2>
-  <img src="resource/cross.png" class="img" id="${json[key].id}" onclick="deleteTitle(this)"/>
+  <img src="resource/cross.png" class="img" 
+  id="${json[key].id}" onclick="deleteTitle(this)"/>
 </div>`;
 };
 
