@@ -45,6 +45,7 @@ const loadTitlesAndItem = function() {
   todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#titleContainer', todoCollection.formatTitleHtml());
   updatePageHtml();
+  resetValue('#titleSearchBox');
 };
 
 const searchTitle = function(searchText) {
