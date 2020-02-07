@@ -29,9 +29,7 @@ const clearItems = () => `<div id="itemAdder" class="hide">
 </div>
 <div id="todoItems"></div>`;
 
-const loadTitlesAndItem = function() {
-  todoCollection.update(JSON.parse(this.responseText));
-  updateHtml('#titleContainer', todoCollection.formatTitleHtml());
+const updatePageHtml = function() {
   const firstHeading = document.querySelector('#titleContainer')
     .firstElementChild;
   if (!firstHeading) {
@@ -41,6 +39,20 @@ const loadTitlesAndItem = function() {
   highlight(firstHeading.firstElementChild);
   updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
   showItemAdder();
+};
+
+const loadTitlesAndItem = function() {
+  todoCollection.update(JSON.parse(this.responseText));
+  updateHtml('#titleContainer', todoCollection.formatTitleHtml());
+  updatePageHtml();
+};
+
+const searchTitle = function(searchText) {
+  updateHtml(
+    '#titleContainer',
+    todoCollection.formatSearchedTitle(searchText.value)
+  );
+  updatePageHtml();
 };
 
 const deleteTitle = function(target) {

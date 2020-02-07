@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="style/style.css" />
     <script src="js/todoCollection.js"></script>
     <script src="js/todoScript.js"></script>
+    <script src="js/search.js"></script>
     <title>TODO</title>
   </head>
 
@@ -12,6 +13,15 @@
     <hr />
     <div id="container">
       <div id="navigationBar">
+        <div>
+          <input
+            type="text"
+            name="titleSearchBox"
+            id="titleSearchBox"
+            placeholder="Search Title"
+            onkeyup="searchTitle(this)"
+          />
+        </div>
         <div id="titleContainer"></div>
         <div>
           <input
