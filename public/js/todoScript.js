@@ -1,5 +1,9 @@
 const todoCollection = new TodoCollection();
 
+const stopPropagation = () => {
+  event.stopPropagation();
+};
+
 const showItemAdder = () =>
   document.querySelector('#itemAdder').classList.remove('hide');
 
@@ -75,6 +79,18 @@ const searchTasks = function(searchedItem) {
     todoCollection.formatTitleOn(searchedItem.value)
   );
   updatePageHtml();
+};
+
+const clearTitleValue = function(title) {
+  title.value = '';
+  searchTitle(title);
+  resetValue('#titleSearchBox');
+};
+
+const clearItemValue = function(item) {
+  item.value = '';
+  searchTasks(item);
+  resetValue('#taskSearchBar');
 };
 
 const deleteTitle = function(target) {

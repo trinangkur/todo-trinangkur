@@ -11,25 +11,27 @@
     <div class="topHeading">
       <h1>TODO</h1>
       <input type="checkbox" class="togglingButton" id="searchTodoPanel" />
-      <label for="searchTodoPanel" id="todoSearchIcon">
+      <label for="searchTodoPanel" onclick="clearTitleValue(this)">
         <div>
           <input
             type="text"
             id="titleSearchBox"
             placeholder="Search Todo Title"
             onkeyup="searchTitle(this)"
+            onclick="stopPropagation();"
           />
           <div class="searchTodo"></div>
         </div>
       </label>
       <input type="checkbox" class="togglingButton" id="searchTaskPanel" />
-      <label for="searchTaskPanel" id="todoSearchIcon">
+      <label for="searchTaskPanel" onclick="clearItemValue(this)">
         <div>
           <input
             type="text"
             id="taskSearchBar"
             placeholder="Search Todo Task"
             onkeyup="searchTasks(this)"
+            onclick="stopPropagation();"
           />
           <div class="searchTask"></div>
         </div>
