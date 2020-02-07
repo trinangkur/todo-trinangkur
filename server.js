@@ -1,6 +1,8 @@
 const http = require('http');
 
-process.env['DATA_STORE'] = `${__dirname}/data/todoList.json`;
+const setupFilePath = require('./setup');
+setupFilePath();
+
 const { requestListener } = require('./lib/handlers');
 
 const main = (port = 3000) => {
