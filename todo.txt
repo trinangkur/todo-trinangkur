@@ -8,4 +8,7 @@ __done__ should be able to delete one whole title
 __done__ should be able to delete one item
 __done__ add feature to search title
 __done__ make data folder and put it in gitIgnore
-add feature to search task
+create toggle icon for searching by title
+create toggle icon for searching by task
+ability to edit title
+ability to edit tasks

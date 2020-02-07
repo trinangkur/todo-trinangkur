@@ -8,20 +8,35 @@
   </head>
 
   <body onload="main()">
-    <h1>TODO</h1>
-    <hr />
-    <div id="container">
-      <div id="navigationBar">
+    <div class="topHeading">
+      <h1>TODO</h1>
+      <input type="checkbox" class="expansionToggler" id="searchTodoPanel" />
+      <label for="searchTodoPanel" id="todoSearchIcon">
         <div>
           <input
             type="text"
-            name="titleSearchBox"
             id="titleSearchBox"
-            placeholder="Search Title"
+            placeholder="Search Todo Title"
             onkeyup="searchTitle(this)"
           />
+          <div class="searchTodo"></div>
         </div>
-        <div id="titleContainer"></div>
+      </label>
+      <input type="checkbox" class="expansionToggler" id="searchTaskPanel" />
+      <label for="searchTaskPanel" id="todoSearchIcon">
+        <div>
+          <input
+            type="text"
+            id="todoSearchBar"
+            placeholder="Search Todo Task"
+          />
+          <div class="searchTask"></div>
+        </div>
+      </label>
+    </div>
+    <hr />
+    <div id="container">
+      <div id="navigationBar">
         <div>
           <input
             type="text"
@@ -38,6 +53,7 @@
             onclick="addTodoTitle()"
           />
         </div>
+        <div id="titleContainer"></div>
       </div>
       <div id="rightBar">
         <div id="itemAdder" class="hide">

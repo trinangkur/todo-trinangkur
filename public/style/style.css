@@ -4,6 +4,7 @@ body {
 
 h1 {
   font-weight: 200;
+  margin-top: 2px;
 }
 
 #container {
@@ -13,13 +14,13 @@ h1 {
 
 #titleBox {
   height: 20px;
-  width: 294px;
+  width: 280px;
   border: none;
-  border-bottom: 2px solid gray;
+  border-bottom: 2px solid palevioletred;
   outline: none;
   font-weight: 100;
   font-size: 20px;
-  padding: 9px 10px;
+  padding: 10px 10px;
   color: rgb(27, 27, 27);
 }
 
@@ -59,9 +60,10 @@ h1 {
   border: 2px solid gray;
   background-color: white;
   color: gray;
-  padding: 9px 8px;
+  padding: 4px 8px;
   font-size: 16px;
   cursor: pointer;
+  outline: gray;
 }
 
 #addTitleButton:hover {
@@ -84,19 +86,7 @@ h1 {
 }
 
 #titleContainer {
-  height: 500px;
   overflow: scroll;
-  border: solid 0.8px lightgray;
-}
-
-#titleSearchBox {
-  height: 17px;
-  width: 376px;
-  font-weight: 100;
-  font-size: 20px;
-  padding: 9px 10px;
-  color: rgb(27, 27, 27);
-  outline: none;
 }
 
 .todoHeading {
@@ -169,4 +159,61 @@ h1 {
 
 .heading:hover > img {
   display: block;
+}
+
+/* trying */
+.topHeading {
+  display: flex;
+}
+
+.searchTodo {
+  height: 20px;
+  content: url(../resource/todoSearch.png);
+}
+
+.searchTask {
+  height: 20px;
+  content: url(../resource/taskSearch.png);
+}
+
+.expansionToggler + label > div > input {
+  outline: none;
+  border: none;
+  line-height: 40px;
+  font-size: 20px;
+  color: white;
+  font-weight: 100;
+  background: transparent;
+  visibility: hidden;
+  width: 0;
+  transition: 200ms;
+}
+
+.expansionToggler + label > div {
+  background-color: rgb(190, 190, 190);
+  margin: 0 5px 0 20px;
+  border-radius: 25px;
+  padding: 0 10px 0 10px;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  cursor: pointer;
+}
+
+.expansionToggler {
+  display: none;
+}
+
+.expansionToggler:checked + label > div > input {
+  visibility: visible;
+  padding: 0 10px;
+  width: 220px;
+}
+
+.expansionToggler:checked + label > div > div {
+  content: url(../resource/cross.png);
+}
+
+.expansionToggler + label > div > input::placeholder {
+  color: rgba(248, 248, 248, 0.3);
 }
