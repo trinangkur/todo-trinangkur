@@ -161,7 +161,6 @@ h1 {
   display: block;
 }
 
-/* trying */
 .topHeading {
   display: flex;
 }
@@ -176,20 +175,20 @@ h1 {
   content: url(../resource/taskSearch.png);
 }
 
-.expansionToggler + label > div > input {
+.togglingButton + label > div > input {
   outline: none;
   border: none;
   line-height: 40px;
   font-size: 20px;
-  color: white;
   font-weight: 100;
+  color: white;
   background: transparent;
-  visibility: hidden;
   width: 0;
-  transition: 200ms;
+  visibility: hidden;
+  transition: 300ms;
 }
 
-.expansionToggler + label > div {
+.togglingButton + label > div {
   background-color: rgb(190, 190, 190);
   margin: 0 5px 0 20px;
   border-radius: 25px;
@@ -200,20 +199,20 @@ h1 {
   cursor: pointer;
 }
 
-.expansionToggler {
+.togglingButton {
   display: none;
 }
 
-.expansionToggler:checked + label > div > input {
+.togglingButton:checked + label > div > input {
   visibility: visible;
   padding: 0 10px;
   width: 220px;
 }
 
-.expansionToggler:checked + label > div > div {
+.togglingButton:checked + label > div > div {
   content: url(../resource/cross.png);
 }
 
-.expansionToggler + label > div > input::placeholder {
+.togglingButton + label > div > input::placeholder {
   color: rgba(248, 248, 248, 0.3);
 }
