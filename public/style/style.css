@@ -27,7 +27,6 @@ h1 {
   width: 400px;
   height: 580px;
   font-size: 16px;
-  overflow: scroll;
   padding: 31px 0px 0px;
   border: 1px solid rgb(230, 230, 230);
   box-shadow: 0px 0px 2px gray;
@@ -84,6 +83,11 @@ h1 {
 #addItemButton:hover {
   color: white;
   background-color: gray;
+}
+
+#titleContainer {
+  height: 540px;
+  overflow: scroll;
 }
 
 .todoHeading {
