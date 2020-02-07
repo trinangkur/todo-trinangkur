@@ -9,6 +9,12 @@ const getImageSrc = status => {
 const isSearchedTitle = (name, searchText) =>
   name.toLowerCase().includes(searchText.toLowerCase());
 
+const isSearchedItemInTitle = function(tasks, searchText) {
+  return Object.keys(tasks).some(key =>
+    isSearchedTitle(tasks[key].text, searchText)
+  );
+};
+
 const getItemsHtml = function(tasks, key) {
   return `<div class="itemClass" >
   <p class="item${getClassIfMarked(tasks[key].status)}" 
@@ -31,6 +37,20 @@ const getTitleHtml = function(todo, key) {
 const getSearchedTitleHtml = function(todo, searchText, html, key) {
   if (isSearchedTitle(todo[key].name, searchText)) {
     return html + getTitleHtml(todo, key);
+  }
+  return html;
+};
+
+const getTitleHtmlOn = function(todo, searchedItem, html, key) {
+  if (isSearchedItemInTitle(todo[key].tasks, searchedItem)) {
+    return html + getTitleHtml(todo, key);
+  }
+  return html;
+};
+
+const getSearchedItemsHtml = function(tasks, searchedItem, html, key) {
+  if (tasks[key].text.includes(searchedItem)) {
+    return html + getItemsHtml(tasks, key);
   }
   return html;
 };
@@ -65,6 +85,22 @@ class TodoCollection {
       .reverse();
     return keys.reduce(
       getSearchedTitleHtml.bind(null, this.todo, searchText),
+      ''
+    );
+  }
+
+  formatTitleOn(searchedItem) {
+    const keys = Object.keys(this.todo)
+      .slice()
+      .reverse();
+    return keys.reduce(getTitleHtmlOn.bind(null, this.todo, searchedItem), '');
+  }
+
+  formatSearchedItem(titleId, searchedItem) {
+    const title = this.todo[titleId];
+    const tasks = title.tasks;
+    return Object.keys(tasks).reduce(
+      getSearchedItemsHtml.bind(null, tasks, searchedItem),
       ''
     );
   }

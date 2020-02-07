@@ -37,8 +37,20 @@ const updatePageHtml = function() {
     return;
   }
   highlight(firstHeading.firstElementChild);
-  updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
+  updateHtml(
+    '#todoItems',
+    todoCollection.formatSearchedItem(
+      elementId('.highlight'),
+      elementValue('#taskSearchBar')
+    )
+  );
   showItemAdder();
+};
+
+const loadItems = function() {
+  todoCollection.update(JSON.parse(this.responseText));
+  updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
+  resetValue('#taskSearchBar');
 };
 
 const loadTitlesAndItem = function() {
@@ -46,12 +58,21 @@ const loadTitlesAndItem = function() {
   updateHtml('#titleContainer', todoCollection.formatTitleHtml());
   updatePageHtml();
   resetValue('#titleSearchBox');
+  resetValue('#taskSearchBar');
 };
 
 const searchTitle = function(searchText) {
   updateHtml(
     '#titleContainer',
     todoCollection.formatSearchedTitle(searchText.value)
+  );
+  updatePageHtml();
+};
+
+const searchTasks = function(searchedItem) {
+  updateHtml(
+    '#titleContainer',
+    todoCollection.formatTitleOn(searchedItem.value)
   );
   updatePageHtml();
 };
@@ -65,13 +86,7 @@ const deleteTitle = function(target) {
 
 const deleteItem = function() {
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    todoCollection.update(JSON.parse(this.responseText));
-    updateHtml(
-      '#todoItems',
-      todoCollection.formatItems(elementId('.highlight'))
-    );
-  };
+  httpRequest.onload = loadItems;
   httpRequest.open('POST', 'deleteItem');
   httpRequest.send(
     `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
@@ -91,13 +106,7 @@ const addTodoTitle = () => {
 
 const mark = function() {
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    todoCollection.update(JSON.parse(this.responseText));
-    updateHtml(
-      '#todoItems',
-      todoCollection.formatItems(elementId('.highlight'))
-    );
-  };
+  httpRequest.onload = loadItems();
   httpRequest.open('POST', 'markItem');
   httpRequest.send(
     `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
@@ -106,7 +115,13 @@ const mark = function() {
 
 const showTitleItems = function(target) {
   highlight(target.firstElementChild);
-  updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
+  updateHtml(
+    '#todoItems',
+    todoCollection.formatSearchedItem(
+      elementId('.highlight'),
+      elementValue('#taskSearchBar')
+    )
+  );
 };
 
 const addTodoItem = function() {
@@ -114,13 +129,7 @@ const addTodoItem = function() {
     return;
   }
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    todoCollection.update(JSON.parse(this.responseText));
-    updateHtml(
-      '#todoItems',
-      todoCollection.formatItems(elementId('.highlight'))
-    );
-  };
+  httpRequest.onload = loadItems;
   httpRequest.open('POST', 'addItemToTitle');
   httpRequest.send(
     `titleId=${elementId('.highlight')}&itemText=${elementValue('#addItem')}`
