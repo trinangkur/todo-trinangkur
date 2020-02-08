@@ -67,6 +67,15 @@ describe('POST addItemToTitle', function() {
   });
 });
 
+describe('POST editTitle', function() {
+  it('should give 200 status code', function(done) {
+    request(requestListener)
+      .post('/editTitle')
+      .send('titleId=t1580877440369&title=hii')
+      .expect(200, done);
+  });
+});
+
 describe('POST deleteItem', function() {
   it('should give 200 status code', function(done) {
     request(requestListener)
