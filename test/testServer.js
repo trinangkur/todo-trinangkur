@@ -76,6 +76,15 @@ describe('POST editTitle', function() {
   });
 });
 
+describe('POST editItem', function() {
+  it('should give 200 status code', function(done) {
+    request(requestListener)
+      .post('/editItem')
+      .send('titleId=t1580877440369&itemId=i1580877444596&itemText=drink water')
+      .expect(200, done);
+  });
+});
+
 describe('POST deleteItem', function() {
   it('should give 200 status code', function(done) {
     request(requestListener)
