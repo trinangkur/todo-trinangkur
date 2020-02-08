@@ -11,6 +11,10 @@ const resetValue = selector => {
   document.querySelector(selector).value = '';
 };
 
+const makeUnchecked = selector => {
+  document.querySelector(selector).checked = false;
+};
+
 const elementId = selector => document.querySelector(selector).id;
 
 const elementValue = selector => document.querySelector(selector).value;
@@ -85,12 +89,14 @@ const clearTitleValue = function(title) {
   title.value = '';
   searchTitle(title);
   resetValue('#titleSearchBox');
+  makeUnchecked('#searchTaskPanel');
 };
 
 const clearItemValue = function(item) {
   item.value = '';
   searchTasks(item);
   resetValue('#taskSearchBar');
+  makeUnchecked('#searchTodoPanel');
 };
 
 const deleteTitle = function(target) {
