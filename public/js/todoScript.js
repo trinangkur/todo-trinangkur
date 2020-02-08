@@ -56,7 +56,6 @@ const updatePageHtml = function() {
 };
 
 const loadItems = function() {
-  console.log(this.responseText);
   todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
   resetValue('#taskSearchBar');
@@ -164,10 +163,22 @@ const changeTitleName = function(target) {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
     todoCollection.update(JSON.parse(this.responseText));
-    console.log(todoCollection.todo);
   };
   httpRequest.open('POST', 'editTitle');
   httpRequest.send(`titleId=${target.id}&title=${target.innerText}`);
+};
+
+const changeItemText = function(target) {
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    todoCollection.update(JSON.parse(this.responseText));
+  };
+  httpRequest.open('POST', 'editItem');
+  httpRequest.send(
+    `titleId=${elementId('.highlight')}&itemId=${target.id}&itemText=${
+      target.innerText
+    }`
+  );
 };
 
 const sendRequestIfEnter = function(target) {

@@ -17,10 +17,14 @@ const isSearchedItemInTitle = function(tasks, searchText) {
 
 const getItemsHtml = function(tasks, key) {
   return `<div class="itemClass" >
+  <div class="paragraph">
+  <img src="${getImageSrc(tasks[key].status)}" 
+  class="marker${getClassIfMarked(tasks[key].status)}" 
+  id="${tasks[key].id}" onclick="mark()"/>
   <p class="item${getClassIfMarked(tasks[key].status)}" 
-  id="${tasks[key].id}" onclick="mark()">
-  <img src="${getImageSrc(tasks[key].status)}" class="marker" 
-  id="${tasks[key].id}"/>${tasks[key].text}</p>
+  id="${tasks[key].id}" contentEditable="true"
+  onkeydown = "sendRequestIfEnter(this)" onblur = "changeItemText(this)">
+  ${tasks[key].text}</p></div>
   <img src="resource/cross.png" class="img" id="${tasks[key].id}"
   onclick="deleteItem()"/></div>`;
 };

@@ -97,7 +97,8 @@ h1 {
   overflow: scroll;
   outline: none;
   cursor: text;
-  min-width: 150px;
+  min-width: 30px;
+  border-left: gray 1px solid;
 }
 
 .todoHeading::-webkit-scrollbar {
@@ -107,6 +108,7 @@ h1 {
 
 .highlight {
   font-weight: bolder;
+  border-left: gray 4px solid;
 }
 
 .itemClass {
@@ -120,6 +122,13 @@ h1 {
   margin-left: 20px;
   font-size: 20px;
   color: rgb(40, 40, 40);
+  cursor: text;
+  min-width: 500px;
+  outline: none;
+}
+
+.item:focus {
+  border-bottom: solid skyblue 1px;
 }
 
 .itemClass:hover {
@@ -142,7 +151,12 @@ h1 {
 .marker {
   height: 15px;
   width: auto;
-  padding-right: 8px;
+  margin-left: 10px;
+  margin-top: 25px;
+}
+
+.paragraph {
+  display: flex;
 }
 
 .img {
