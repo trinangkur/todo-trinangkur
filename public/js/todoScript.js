@@ -56,6 +56,7 @@ const updatePageHtml = function() {
 };
 
 const loadItems = function() {
+  console.log(this.responseText);
   todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
   resetValue('#taskSearchBar');
@@ -128,7 +129,7 @@ const addTodoTitle = () => {
 
 const mark = function() {
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = loadItems();
+  httpRequest.onload = loadItems;
   httpRequest.open('POST', 'markItem');
   httpRequest.send(
     `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
@@ -157,6 +158,25 @@ const addTodoItem = function() {
     `titleId=${elementId('.highlight')}&itemText=${elementValue('#addItem')}`
   );
   resetValue('#addItem');
+};
+
+const changeTitleName = function(target) {
+  if (target.innerText === '') {
+    return alert('title can not be empty');
+  }
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    todoCollection.update(JSON.parse(this.responseText));
+    console.log(todoCollection.todo);
+  };
+  httpRequest.open('POST', 'editTitle');
+  httpRequest.send(`titleId=${target.id}&title=${target.innerText}`);
+};
+
+const sendRequestIfEnter = function(target) {
+  if (event.key === 'Enter') {
+    target.blur();
+  }
 };
 
 const main = function() {

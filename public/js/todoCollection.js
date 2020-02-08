@@ -28,7 +28,10 @@ const getItemsHtml = function(tasks, key) {
 const getTitleHtml = function(todo, key) {
   return `<div class="heading" onclick="showTitleItems(this)" 
   id="${todo[key].id}">
-  <h2 class="todoHeading" id="${todo[key].id}">${todo[key].name}</h2>
+  <h2 class="todoHeading" id="${todo[key].id}" 
+  contentEditable="true"
+  onkeydown = "sendRequestIfEnter(this)"
+  onblur = "changeTitleName(this)">${todo[key].name}</h2>
   <img src="resource/cross.png" class="img" 
   id="${todo[key].id}" onclick="deleteTitle(this)"/>
   </div>`;

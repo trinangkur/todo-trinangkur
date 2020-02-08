@@ -95,6 +95,17 @@ h1 {
   padding-left: 8px;
   cursor: pointer;
   overflow: scroll;
+  outline: none;
+  cursor: text;
+}
+
+.todoHeading:focus {
+  border-bottom: solid black 0.8px;
+}
+
+.todoHeading::-webkit-scrollbar {
+  height: 0 !important;
+  width: 0 !important;
 }
 
 .highlight {
@@ -128,8 +139,7 @@ h1 {
 }
 
 .mark {
-  text-decoration: line-through;
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 .marker {
