@@ -97,10 +97,7 @@ h1 {
   overflow: scroll;
   outline: none;
   cursor: text;
-}
-
-.todoHeading:focus {
-  border-bottom: solid black 0.8px;
+  min-width: 150px;
 }
 
 .todoHeading::-webkit-scrollbar {

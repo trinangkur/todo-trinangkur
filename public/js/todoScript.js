@@ -161,9 +161,6 @@ const addTodoItem = function() {
 };
 
 const changeTitleName = function(target) {
-  if (target.innerText === '') {
-    return alert('title can not be empty');
-  }
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
     todoCollection.update(JSON.parse(this.responseText));
