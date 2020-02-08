@@ -11,5 +11,5 @@ __done__ make data folder and put it in gitIgnore
 __done__ create toggle icon for searching by title
 __done__ create toggle icon for searching by task
 __done__ ability to search by task globally
-ability to edit title
-ability to edit tasks
+__done__ ability to edit title
+__done__ ability to edit tasks
