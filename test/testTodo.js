@@ -43,9 +43,34 @@ describe('TodoCollection', function() {
       );
     });
   });
-  describe.skip('addTaskToTitle', function() {
+  describe('addTodoItem', function() {
     it('should add task to given todo', function() {
-      // assert.type(actual, expected);
+      const json1 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {}
+        }
+      };
+      const json2 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {
+            i1: {
+              id: 'i1',
+              text: 'hey hey',
+              status: false
+            }
+          }
+        }
+      };
+      const todoCollection = TodoCollection.load(JSON.stringify(json1));
+      todoCollection.addTodoItem('t1581337001157', {text: 'hey hey', id: 'i1'});
+      assert.deepStrictEqual(
+        todoCollection,
+        TodoCollection.load(JSON.stringify(json2))
+      );
     });
   });
 });
