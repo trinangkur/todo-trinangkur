@@ -6,5 +6,6 @@ describe('TodoCollection', function() {
     it('should return empty object, when empty string is given', function() {
       assert.deepStrictEqual(TodoCollection.load(''), new TodoCollection());
     });
+    it('should ')
   });
 });
