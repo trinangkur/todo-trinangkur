@@ -73,4 +73,40 @@ describe('TodoCollection', function() {
       );
     });
   });
+  describe('toggleItemStatus', function() {
+    it('should toggle status of a given item', function() {
+      const json1 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {
+            i1581337003892: {
+              id: 'i1581337003892',
+              text: 'hey you',
+              status: false
+            }
+          }
+        }
+      };
+      const json2 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {
+            i1581337003892: {
+              id: 'i1581337003892',
+              text: 'hey you',
+              status: true
+            }
+          }
+        }
+      };
+      const todoCollection = TodoCollection.load(JSON.stringify(json1));
+      todoCollection.toggleItemStatus('t1581337001157', 'i1581337003892');
+      assert.deepStrictEqual(
+        todoCollection,
+        TodoCollection.load(JSON.stringify(json2))
+      );
+    });
+  });
 });
