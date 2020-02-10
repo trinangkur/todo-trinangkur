@@ -36,11 +36,16 @@ describe('TodoCollection', function() {
         }
       };
       const todoCollection = TodoCollection.load('');
-      todoCollection.addTodoTitle(new Todo('hey', 't1581337001157'));
+      todoCollection.addTodo(new Todo('hey', 't1581337001157'));
       assert.deepStrictEqual(
         todoCollection,
         TodoCollection.load(JSON.stringify(json))
       );
+    });
+  });
+  describe.skip('addTaskToTitle', function() {
+    it('should add task to given todo', function() {
+      // assert.type(actual, expected);
     });
   });
 });
