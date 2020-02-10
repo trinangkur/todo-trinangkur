@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {TodoCollection} = require('../lib/todo');
+const {Todo, TodoCollection} = require('../lib/todo');
 
 describe('TodoCollection', function() {
   describe('load', function() {
@@ -22,6 +22,23 @@ describe('TodoCollection', function() {
       };
       assert.deepStrictEqual(
         TodoCollection.load(JSON.stringify(json)),
+        TodoCollection.load(JSON.stringify(json))
+      );
+    });
+  });
+  describe('addTodo', function() {
+    it('should add todo in todoCollection', function() {
+      const json = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {}
+        }
+      };
+      const todoCollection = TodoCollection.load('');
+      todoCollection.addTodoTitle(new Todo('hey', 't1581337001157'));
+      assert.deepStrictEqual(
+        todoCollection,
         TodoCollection.load(JSON.stringify(json))
       );
     });
