@@ -55,17 +55,22 @@ const updatePageHtml = function() {
   showItemAdder();
 };
 
+const checkResponse = function(res) {
+  const contentType = res.getResponseHeader('Content-Type');
+  if (res.status !== 200 && contentType !== 'application/json') {
+    return updateHtml('body', `<p>${res.status} server error</p>`);
+  }
+};
+
 const loadItems = function() {
+  checkResponse(this);
   todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
   resetValue('#taskSearchBar');
 };
 
 const loadTitlesAndItem = function() {
-  const contentType = this.getResponseHeader('Content-Type');
-  if (this.status !== 200 && contentType !== 'application/json') {
-    return updateHtml('body', `<p>${this.status} server error</p>`);
-  }
+  checkResponse(this);
   todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#titleContainer', todoCollection.formatTitleHtml());
   updatePageHtml();
