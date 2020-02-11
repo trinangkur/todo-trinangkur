@@ -110,7 +110,7 @@ describe('TodoCollection', function() {
     });
   });
   describe('deleteTodo', function() {
-    it('should toggle status of a given item', function() {
+    it('should delete Todo for a given id', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
@@ -127,6 +127,36 @@ describe('TodoCollection', function() {
       const todoCollection = TodoCollection.load(JSON.stringify(json1));
       todoCollection.deleteTodo('t1581337001157');
       assert.deepStrictEqual(todoCollection, TodoCollection.load('{}'));
+    });
+  });
+  describe('deleteTodoItem', function() {
+    it('should delete item of a todo for a given todoId and itemId', () => {
+      const json1 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {
+            i1581337003892: {
+              id: 'i1581337003892',
+              text: 'hey you',
+              status: false
+            }
+          }
+        }
+      };
+      const json2 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {}
+        }
+      };
+      const todoCollection = TodoCollection.load(JSON.stringify(json1));
+      todoCollection.deleteTodoItem('t1581337001157', 'i1581337003892');
+      assert.deepStrictEqual(
+        todoCollection,
+        TodoCollection.load(JSON.stringify(json2))
+      );
     });
   });
 });
