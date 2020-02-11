@@ -55,22 +55,26 @@ const updatePageHtml = function() {
   showItemAdder();
 };
 
-const checkResponse = function(res) {
+const isBadResponse = function(res) {
   const contentType = res.getResponseHeader('Content-Type');
-  if (res.status !== 200 && contentType !== 'application/json') {
-    return updateHtml('body', `<p>${res.status} server error</p>`);
-  }
+  return res.status !== 200 || contentType !== 'application/json';
 };
 
 const loadItems = function() {
-  checkResponse(this);
+  if (isBadResponse(this)) {
+    const errorMessage = JSON.stringify(this.responseText).errorMessage;
+    return updateHtml('body', `<h1>${res.status} ${errorMessage}</h1>`);
+  }
   todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#todoItems', todoCollection.formatItems(elementId('.highlight')));
   resetValue('#taskSearchBar');
 };
 
 const loadTitlesAndItem = function() {
-  checkResponse(this);
+  if (isBadResponse(this)) {
+    const {errMessage} = JSON.parse(this.responseText);
+    return updateHtml('body', `<h1>${this.status} ${errMessage}</h1>`);
+  }
   todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#titleContainer', todoCollection.formatTitleHtml());
   updatePageHtml();

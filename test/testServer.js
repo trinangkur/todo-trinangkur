@@ -47,6 +47,13 @@ describe('POST addTodoTitle', function() {
       .set('Accept', '*/*')
       .expect(200, done);
   });
+  it('should give 400 as status code and will give json back', function(done) {
+    request(requestListener)
+      .post('/addTodoTitle')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(400, done);
+  });
 });
 
 describe('POST mark item', function() {
@@ -56,14 +63,28 @@ describe('POST mark item', function() {
       .send('titleId=t1580877440369&itemId=i1580877444596')
       .expect(200, done);
   });
+  it('should give 400 as status code and will give json back', function(done) {
+    request(requestListener)
+      .post('/markItem')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(400, done);
+  });
 });
 
 describe('POST addItemToTitle', function() {
   it('should give 200 status code', function(done) {
     request(requestListener)
       .post('/addItemToTitle')
-      .send('titleId=t1580877440369&itemText=hallo')
+      .send('titleId=t1580877440369&text=hallo')
       .expect(200, done);
+  });
+  it('should give 400 as status code and will give json back', function(done) {
+    request(requestListener)
+      .post('/addItemToTitle')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(400, done);
   });
 });
 
@@ -71,8 +92,15 @@ describe('POST editTitle', function() {
   it('should give 200 status code', function(done) {
     request(requestListener)
       .post('/editTitle')
-      .send('titleId=t1580877440369&title=hii')
+      .send('titleId=t1580877440369&titleText=hii')
       .expect(200, done);
+  });
+  it('should give 400 as status code and will give json back', function(done) {
+    request(requestListener)
+      .post('/editTitle')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(400, done);
   });
 });
 
@@ -83,6 +111,13 @@ describe('POST editItem', function() {
       .send('titleId=t1580877440369&itemId=i1580877444596&itemText=drink water')
       .expect(200, done);
   });
+  it('should give 400 as status code and will give json back', function(done) {
+    request(requestListener)
+      .post('/editItem')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(400, done);
+  });
 });
 
 describe('POST deleteItem', function() {
@@ -92,6 +127,13 @@ describe('POST deleteItem', function() {
       .send('titleId=t1580877440369&itemId=i1580877444596')
       .expect(200, done);
   });
+  it('should give 400 as status code and will give json back', function(done) {
+    request(requestListener)
+      .post('/deleteItem')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(400, done);
+  });
 });
 
 describe('POST deleteTodoTitle', function() {
@@ -100,6 +142,13 @@ describe('POST deleteTodoTitle', function() {
       .post('/deleteTodoTitle')
       .send('titleId=t1580877440369')
       .expect(200, done);
+  });
+  it('should give 400 as status code and will give json back', function(done) {
+    request(requestListener)
+      .post('/deleteTodoTitle')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(400, done);
   });
   after(() => {
     fs.unlinkSync(`${__dirname}/testTodoList.json`);
