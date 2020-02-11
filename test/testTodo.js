@@ -244,4 +244,21 @@ describe('TodoCollection', function() {
       assert.strictEqual(todoCollection.toJson(), JSON.stringify(json1));
     });
   });
+  describe('writeTo', function() {
+    it('should give writer the json stringify of todoObject', function() {
+      const json1 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {}
+        }
+      };
+      const writer = (path, json) => {
+        assert.strictEqual(json, JSON.stringify(json1));
+        assert.strictEqual(path, './data/thisIsThePath');
+      };
+      const todoCollection = TodoCollection.load(JSON.stringify(json1));
+      todoCollection.writeTo(writer, './data/thisIsThePath');
+    });
+  });
 });
