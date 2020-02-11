@@ -159,4 +159,40 @@ describe('TodoCollection', function() {
       );
     });
   });
+  describe('editTitle', function() {
+    it('should edit the title of given todoId', () => {
+      const json1 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {
+            i1581337003892: {
+              id: 'i1581337003892',
+              text: 'hey you',
+              status: false
+            }
+          }
+        }
+      };
+      const json2 = {
+        t1581337001157: {
+          name: 'hi',
+          id: 't1581337001157',
+          tasks: {
+            i1581337003892: {
+              id: 'i1581337003892',
+              text: 'hey you',
+              status: false
+            }
+          }
+        }
+      };
+      const todoCollection = TodoCollection.load(JSON.stringify(json1));
+      todoCollection.editTitle('t1581337001157', 'hi');
+      assert.deepStrictEqual(
+        todoCollection,
+        TodoCollection.load(JSON.stringify(json2))
+      );
+    });
+  });
 });
