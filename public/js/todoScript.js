@@ -62,6 +62,9 @@ const loadItems = function() {
 };
 
 const loadTitlesAndItem = function() {
+  if (this.status !== 200) {
+    return updateHtml('body', `<p>${this.status} server error</p>`);
+  }
   todoCollection.update(JSON.parse(this.responseText));
   updateHtml('#titleContainer', todoCollection.formatTitleHtml());
   updatePageHtml();
