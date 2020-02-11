@@ -109,4 +109,24 @@ describe('TodoCollection', function() {
       );
     });
   });
+  describe('deleteTodo', function() {
+    it('should toggle status of a given item', function() {
+      const json1 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {
+            i1581337003892: {
+              id: 'i1581337003892',
+              text: 'hey you',
+              status: false
+            }
+          }
+        }
+      };
+      const todoCollection = TodoCollection.load(JSON.stringify(json1));
+      todoCollection.deleteTodo('t1581337001157');
+      assert.deepStrictEqual(todoCollection, TodoCollection.load('{}'));
+    });
+  });
 });
