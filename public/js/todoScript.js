@@ -141,7 +141,7 @@ const addTodoItem = function() {
   httpRequest.onload = loadItems;
   httpRequest.open('POST', 'addItemToTitle');
   httpRequest.send(
-    `titleId=${elementId('.highlight')}&itemText=${elementValue('#addItem')}`
+    `titleId=${elementId('.highlight')}&text=${elementValue('#addItem')}`
   );
   resetValue('#addItem');
 };
@@ -152,7 +152,7 @@ const changeTitleName = function(target) {
     todoCollection.update(JSON.parse(this.responseText));
   };
   httpRequest.open('POST', 'editTitle');
-  httpRequest.send(`titleId=${target.id}&title=${target.innerText}`);
+  httpRequest.send(`titleId=${target.id}&titleText=${target.innerText}`);
 };
 
 const changeItemText = function(target) {
