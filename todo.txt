@@ -14,5 +14,8 @@ __done__ ability to search by task globally
 __done__ ability to edit title
 __done__ ability to edit tasks
 __done__create a new file router.js which calls app and handlers.
-need to change data structure[remove id].
+__done__need to change data structure[remove id].
 change the way of generating id.
+design loginPage .
+design signUp page.
+decide the data structure for holding user details.
