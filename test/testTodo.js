@@ -33,10 +33,7 @@ describe('TodoCollection', function() {
         }
       };
       const todoCollection = TodoCollection.load('');
-      todoCollection.addTodo(
-        't1581337001157',
-        new Todo('hey', 't1581337001157')
-      );
+      todoCollection.addTodo('t1581337001157', new Todo('hey'));
       assert.deepStrictEqual(
         todoCollection,
         TodoCollection.load(JSON.stringify(json))
