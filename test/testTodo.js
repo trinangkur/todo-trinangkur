@@ -236,4 +236,24 @@ describe('TodoCollection', function() {
       todoCollection.writeTo(writer, './data/thisIsThePath');
     });
   });
+  describe('nextTodoId', function() {
+    it('should edit the item of given todoId and itemId', () => {
+      const json1 = {
+        '2': {
+          name: 'hey',
+          tasks: {}
+        },
+        '1': {
+          name: 'hey you',
+          tasks: {}
+        },
+        '-1': {
+          name: 'hey ho',
+          tasks: {}
+        }
+      };
+      const todoCollection = TodoCollection.load(JSON.stringify(json1));
+      assert.strictEqual(todoCollection.nextTodoId(), 3);
+    });
+  });
 });
