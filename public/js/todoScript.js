@@ -160,12 +160,12 @@ const changeItemText = function(target) {
   httpRequest.onload = function() {
     todoCollection.update(JSON.parse(this.responseText));
   };
+  const {id, innerText} = target;
   httpRequest.open('POST', 'editItem');
-  httpRequest.send(
-    `titleId=${elementId('.highlight')}&itemId=${target.id}&itemText=${
-      target.innerText
-    }`
-  );
+  const postText = `titleId=${elementId(
+    '.highlight'
+  )}&itemId=${id}&itemText=${innerText}`;
+  httpRequest.send(postText);
 };
 
 const sendRequestIfEnter = function(target) {
