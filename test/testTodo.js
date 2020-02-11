@@ -196,7 +196,7 @@ describe('TodoCollection', function() {
     });
   });
   describe('editItem', function() {
-    it('should edit the title of given todoId', () => {
+    it('should edit the item of given todoId and itemId', () => {
       const json1 = {
         t1581337001157: {
           name: 'hey',
@@ -229,6 +229,19 @@ describe('TodoCollection', function() {
         todoCollection,
         TodoCollection.load(JSON.stringify(json2))
       );
+    });
+  });
+  describe('toJson', function() {
+    it('should return the json stringify of todoObject', function() {
+      const json1 = {
+        t1581337001157: {
+          name: 'hey',
+          id: 't1581337001157',
+          tasks: {}
+        }
+      };
+      const todoCollection = TodoCollection.load(JSON.stringify(json1));
+      assert.strictEqual(todoCollection.toJson(), JSON.stringify(json1));
     });
   });
 });
