@@ -8,7 +8,7 @@ fs.writeFileSync(
   {"i1580877444596":
   {"id":"i1580877444596","text":"how are you?","status":false}}}}`
 );
-const { requestListener } = require('../lib/handlers');
+const {requestListener} = require('../lib/router.js');
 
 describe('Home Page', function() {
   it('should give home page / path', function(done) {
