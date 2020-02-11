@@ -62,7 +62,8 @@ const loadItems = function() {
 };
 
 const loadTitlesAndItem = function() {
-  if (this.status !== 200) {
+  const contentType = this.getResponseHeader('Content-Type');
+  if (this.status !== 200 && contentType !== 'application/json') {
     return updateHtml('body', `<p>${this.status} server error</p>`);
   }
   todoCollection.update(JSON.parse(this.responseText));
