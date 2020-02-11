@@ -10,10 +10,8 @@ describe('TodoCollection', function() {
       const json = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey you',
               status: false
             }
@@ -31,12 +29,14 @@ describe('TodoCollection', function() {
       const json = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {}
         }
       };
       const todoCollection = TodoCollection.load('');
-      todoCollection.addTodo(new Todo('hey', 't1581337001157'));
+      todoCollection.addTodo(
+        't1581337001157',
+        new Todo('hey', 't1581337001157')
+      );
       assert.deepStrictEqual(
         todoCollection,
         TodoCollection.load(JSON.stringify(json))
@@ -48,17 +48,14 @@ describe('TodoCollection', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {}
         }
       };
       const json2 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1: {
-              id: 'i1',
               text: 'hey hey',
               status: false
             }
@@ -78,10 +75,8 @@ describe('TodoCollection', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey you',
               status: false
             }
@@ -91,10 +86,8 @@ describe('TodoCollection', function() {
       const json2 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey you',
               status: true
             }
@@ -114,10 +107,8 @@ describe('TodoCollection', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey you',
               status: false
             }
@@ -134,10 +125,8 @@ describe('TodoCollection', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey you',
               status: false
             }
@@ -147,7 +136,6 @@ describe('TodoCollection', function() {
       const json2 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {}
         }
       };
@@ -164,10 +152,8 @@ describe('TodoCollection', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey you',
               status: false
             }
@@ -177,10 +163,8 @@ describe('TodoCollection', function() {
       const json2 = {
         t1581337001157: {
           name: 'hi',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey you',
               status: false
             }
@@ -200,10 +184,8 @@ describe('TodoCollection', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey you',
               status: false
             }
@@ -213,10 +195,8 @@ describe('TodoCollection', function() {
       const json2 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {
             i1581337003892: {
-              id: 'i1581337003892',
               text: 'hey me',
               status: false
             }
@@ -236,7 +216,6 @@ describe('TodoCollection', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {}
         }
       };
@@ -249,7 +228,6 @@ describe('TodoCollection', function() {
       const json1 = {
         t1581337001157: {
           name: 'hey',
-          id: 't1581337001157',
           tasks: {}
         }
       };

@@ -4,9 +4,9 @@ const fs = require('fs');
 fs.writeFileSync(
   `${__dirname}/testTodoList.json`,
   `{"t1580877440369":
-  {"name":"hey","id":"t1580877440369","tasks":
+  {"name":"hey","tasks":
   {"i1580877444596":
-  {"id":"i1580877444596","text":"how are you?","status":false}}}}`
+  {"text":"how are you?","status":false}}}}`
 );
 const {requestListener} = require('../lib/router.js');
 

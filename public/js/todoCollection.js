@@ -20,24 +20,24 @@ const getItemsHtml = function(tasks, key) {
   <div class="paragraph">
   <img src="${getImageSrc(tasks[key].status)}" 
   class="marker${getClassIfMarked(tasks[key].status)}" 
-  id="${tasks[key].id}" onclick="mark()"/>
+  id="${key}" onclick="mark()"/>
   <p class="item${getClassIfMarked(tasks[key].status)}" 
-  id="${tasks[key].id}" contentEditable="true"
+  id="${key}" contentEditable="true"
   onkeydown = "sendRequestIfEnter(this)" onblur = "changeItemText(this)">
   ${tasks[key].text}</p></div>
-  <img src="resource/cross.png" class="img" id="${tasks[key].id}"
+  <img src="resource/cross.png" class="img" id="${key}"
   onclick="deleteItem()"/></div>`;
 };
 
 const getTitleHtml = function(todo, key) {
   return `<div class="heading" onclick="showTitleItems(this)" 
-  id="${todo[key].id}">
-  <h2 class="todoHeading" id="${todo[key].id}" 
+  id="${key}">
+  <h2 class="todoHeading" id="${key}" 
   contentEditable="true"
   onkeydown = "sendRequestIfEnter(this)"
   onblur = "changeTitleName(this)">${todo[key].name}</h2>
   <img src="resource/cross.png" class="img" 
-  id="${todo[key].id}" onclick="deleteTitle(this)"/>
+  id="${key}" onclick="deleteTitle(this)"/>
   </div>`;
 };
 
