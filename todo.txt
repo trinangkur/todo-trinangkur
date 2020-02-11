@@ -18,6 +18,9 @@ __done__ need to change data structure[remove id].
 __done__ change the way of generating id.
 __done__ remove repetition of code in client side. 
 __done__ handle server side error.
+__done__ make a middleware body parser.
+In every post handler check the required params are their or not.
+send and check content type in server and client side.
 design loginPage .
 design signUp page.
 decide the data structure for holding user details.
