@@ -15,7 +15,7 @@ const isSearchedItemInTitle = function(tasks, searchText) {
   );
 };
 
-const getItemsHtml = function(tasks, key) {
+const getItemHtml = function(tasks, key) {
   return `<div class="itemClass" >
   <div class="paragraph">
   <img src="${getImageSrc(tasks[key].status)}" 
@@ -57,7 +57,7 @@ const getTitleHtmlOn = function(todo, searchedItem, html, key) {
 
 const getSearchedItemsHtml = function(tasks, searchedItem, html, key) {
   if (tasks[key].text.includes(searchedItem)) {
-    return html + getItemsHtml(tasks, key);
+    return html + getItemHtml(tasks, key);
   }
   return html;
 };
@@ -75,7 +75,7 @@ class TodoCollection {
     const title = this.todo[titleId];
     const tasks = title.tasks;
     return Object.keys(tasks)
-      .map(getItemsHtml.bind(null, tasks))
+      .map(getItemHtml.bind(null, tasks))
       .join('');
   }
 

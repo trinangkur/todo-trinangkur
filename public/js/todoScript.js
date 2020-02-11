@@ -37,6 +37,12 @@ const clearItems = () => `<div id="itemAdder" class="hide">
 </div>
 <div id="todoItems"></div>`;
 
+const getItemsHtml = () =>
+  todoCollection.formatSearchedItem(
+    elementId('.highlight'),
+    elementValue('#taskSearchBar')
+  );
+
 const updatePageHtml = function() {
   const firstHeading = document.querySelector('#titleContainer')
     .firstElementChild;
@@ -45,13 +51,7 @@ const updatePageHtml = function() {
     return;
   }
   highlight(firstHeading.firstElementChild);
-  updateHtml(
-    '#todoItems',
-    todoCollection.formatSearchedItem(
-      elementId('.highlight'),
-      elementValue('#taskSearchBar')
-    )
-  );
+  updateHtml('#todoItems', getItemsHtml());
   showItemAdder();
 };
 
@@ -85,18 +85,11 @@ const searchTasks = function(searchedItem) {
   updatePageHtml();
 };
 
-const clearTitleValue = function(title) {
-  title.value = '';
-  searchTitle(title);
-  resetValue('#titleSearchBox');
-  makeUnchecked('#searchTaskPanel');
-};
-
-const clearItemValue = function(item) {
-  item.value = '';
-  searchTasks(item);
-  resetValue('#taskSearchBar');
-  makeUnchecked('#searchTodoPanel');
+const clearValue = function(element, searchBox, selector) {
+  element.value = '';
+  searchTitle(element);
+  resetValue(searchBox);
+  makeUnchecked(selector);
 };
 
 const deleteTitle = function(target) {
@@ -137,13 +130,7 @@ const mark = function() {
 
 const showTitleItems = function(target) {
   highlight(target.firstElementChild);
-  updateHtml(
-    '#todoItems',
-    todoCollection.formatSearchedItem(
-      elementId('.highlight'),
-      elementValue('#taskSearchBar')
-    )
-  );
+  updateHtml('#todoItems', getItemsHtml());
 };
 
 const addTodoItem = function() {

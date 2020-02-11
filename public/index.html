@@ -11,7 +11,10 @@
     <div class="topHeading">
       <h1>TODO</h1>
       <input type="checkbox" class="togglingButton" id="searchTodoPanel" />
-      <label for="searchTodoPanel" onclick="clearTitleValue(this)">
+      <label
+        for="searchTodoPanel"
+        onclick="clearValue(this,'#titleSearchBox','#searchTaskPanel')"
+      >
         <div>
           <input
             type="text"
@@ -24,7 +27,10 @@
         </div>
       </label>
       <input type="checkbox" class="togglingButton" id="searchTaskPanel" />
-      <label for="searchTaskPanel" onclick="clearItemValue(this)">
+      <label
+        for="searchTaskPanel"
+        onclick="clearValue(this, '#taskSearchBar','#searchTodoPanel')"
+      >
         <div>
           <input
             type="text"

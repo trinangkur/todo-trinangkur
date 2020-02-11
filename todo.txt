@@ -16,6 +16,7 @@ __done__ ability to edit tasks
 __done__ create a new file router.js which calls app and handlers.
 __done__ need to change data structure[remove id].
 __done__ change the way of generating id.
+__done__ remove repetition of code in client side. 
 design loginPage .
 design signUp page.
 decide the data structure for holding user details.
