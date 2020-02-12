@@ -154,3 +154,13 @@ describe('POST deleteTodoTitle', function() {
     fs.unlinkSync(`${__dirname}/testTodoList.json`);
   });
 });
+
+describe('PUT method not allowed', function() {
+  it('should give 405 as status code', function(done) {
+    request(requestListener)
+      .put('/deleteTodoTitle')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(405, done);
+  });
+});
