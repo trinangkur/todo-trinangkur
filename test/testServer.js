@@ -155,6 +155,16 @@ describe('POST deleteTodoTitle', function() {
   });
 });
 
+describe('POST notfound', function() {
+  it('should give 404 status code', function(done) {
+    request(requestListener)
+      .post('/hey hey')
+      .send('titleHo=hallo')
+      .set('Accept', '*/*')
+      .expect(404, done);
+  });
+});
+
 describe('PUT method not allowed', function() {
   it('should give 405 as status code', function(done) {
     request(requestListener)
