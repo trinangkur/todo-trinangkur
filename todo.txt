@@ -25,6 +25,8 @@ __done__ In every post handler check the required params are their or not.
 __done__ add method not allowed handler.
 __done__ add post not found response
 __done__ add dataStore class.
+__done__ In every post request add has fields handler. 
+make object that holds all status code
 design loginPage .
 design signUp page.
 decide the data structure for holding user details.
