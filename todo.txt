@@ -23,7 +23,8 @@ __done__ send and check content type in server and client side.
 __done__ extract a function for sending json response.
 __done__ In every post handler check the required params are their or not.
 __done__ add method not allowed handler.
-__done__ add post not found response
+__done__ add post not found response.
+__done__ add middleware for injecting method in req and res object to sendResponse and validating incoming object.
 design loginPage .
 design signUp page.
 decide the data structure for holding user details.
