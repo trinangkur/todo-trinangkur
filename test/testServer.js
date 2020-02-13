@@ -70,6 +70,12 @@ describe('POST mark item', function() {
       .set('Accept', '*/*')
       .expect(400, done);
   });
+  it('should give status code as 404 for a given wrong id', function(done) {
+    request(requestListener)
+      .post('/markItem')
+      .send('titleId=t1580877440369&itemId=i15')
+      .expect(404, done);
+  });
 });
 
 describe('POST addItemToTitle', function() {
@@ -85,6 +91,12 @@ describe('POST addItemToTitle', function() {
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
+  });
+  it('should give status code as 404 for a given wrong id', function(done) {
+    request(requestListener)
+      .post('/addItemToTitle')
+      .send('titleId=t15809&text=hallo')
+      .expect(404, done);
   });
 });
 
@@ -102,6 +114,12 @@ describe('POST editTitle', function() {
       .set('Accept', '*/*')
       .expect(400, done);
   });
+  it('should give 404 as status code when wrong id is given', function(done) {
+    request(requestListener)
+      .post('/editTitle')
+      .send('titleId=t157&titleText=hii')
+      .expect(404, done);
+  });
 });
 
 describe('POST editItem', function() {
@@ -117,6 +135,12 @@ describe('POST editItem', function() {
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
+  });
+  it('should give 404 as status code for a given wrong id', function(done) {
+    request(requestListener)
+      .post('/editItem')
+      .send('titleId=t158440369&itemId=i1580874596&itemText=drink water')
+      .expect(404, done);
   });
 });
 
@@ -134,6 +158,12 @@ describe('POST deleteItem', function() {
       .set('Accept', '*/*')
       .expect(400, done);
   });
+  it('should give 404 for a given wrong id', function(done) {
+    request(requestListener)
+      .post('/deleteItem')
+      .send('titleId=t1580877369&itemId=i15808774596')
+      .expect(404, done);
+  });
 });
 
 describe('POST deleteTodoTitle', function() {
@@ -149,6 +179,12 @@ describe('POST deleteTodoTitle', function() {
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
+  });
+  it('should give 404 for a given wrong id', function(done) {
+    request(requestListener)
+      .post('/deleteTodoTitle')
+      .send('titleId=t15808774409')
+      .expect(404, done);
   });
   after(() => {
     fs.unlinkSync(`${__dirname}/testTodoList.json`);
