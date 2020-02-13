@@ -31,7 +31,39 @@
           <h3>or</h3>
           <div class="line"></div>
         </div>
-        <p id="signUpLink">Sign Up</p>
+        <p id="signUpLink" onclick="showSignUp()">Sign Up</p>
+      </div>
+      <div id="signUpForm" class="hide">
+        <form method="POST">
+          <input
+            type="text"
+            name="fullName"
+            placeholder="Enter Your Full Name"
+            required
+            class="formBox"
+          />
+          <input
+            type="email"
+            name="userId"
+            placeholder="Enter preferred userId"
+            required
+            class="formBox"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter new Password"
+            required
+            class="formBox"
+          />
+          <input type="submit" class="submitButton" value="Sign Up" />
+        </form>
+        <div id="orDiv">
+          <div class="line"></div>
+          <h3>or</h3>
+          <div class="line"></div>
+        </div>
+        <p id="signUpLink" onclick="showLogin()">Login</p>
       </div>
     </div>
   </body>

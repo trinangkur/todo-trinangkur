@@ -29,5 +29,5 @@ __done__ In every post request add has fields handler.
 __done__ make object that holds all status code
 __done__ add handler that checks whether the given id is present in store or not.
 __done__ design loginPage .
-design signUp page.
+__done__ design signUp page.
 decide the data structure for holding user details.
