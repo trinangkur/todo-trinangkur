@@ -91,6 +91,15 @@
         "no-magic-numbers": "off",
         "max-statements": "off"
       }
+    },
+    {
+      "files": ["login/js/*.js"],
+      "rules": {
+        "no-undef": "off",
+        "max-len": "warn",
+        "no-magic-numbers": "off",
+        "no-unused-vars": "off"
+      }
     }
   ]
 }

@@ -117,14 +117,14 @@ const sendPostXHR = function(url, callback, data) {
 };
 
 const deleteTitle = function(target) {
-  sendPostXHR('deleteTodoTitle', loadTitlesAndItem, `titleId=${target.id}`);
+  sendPostXHR('user/deleteTodoTitle', loadTitlesAndItem, `titleId=${target.id}`);
 };
 
 const deleteItem = function() {
   const requestText = `titleId=${elementId('.highlight')}&itemId=${
     event.target.id
   }`;
-  sendPostXHR('deleteItem', loadItems, requestText);
+  sendPostXHR('user/deleteItem', loadItems, requestText);
 };
 
 const addTodoTitle = () => {
@@ -132,7 +132,7 @@ const addTodoTitle = () => {
     return;
   }
   const requestText = `title=${elementValue('#titleBox')}`;
-  sendPostXHR('addTodoTitle', loadTitlesAndItem, requestText);
+  sendPostXHR('user/addTodoTitle', loadTitlesAndItem, requestText);
   resetValue('#titleBox');
 };
 
@@ -140,7 +140,7 @@ const mark = function() {
   const requestText = `titleId=${elementId('.highlight')}&itemId=${
     event.target.id
   }`;
-  sendPostXHR('markItem', loadItems, requestText);
+  sendPostXHR('user/markItem', loadItems, requestText);
 };
 
 const showTitleItems = function(target) {
@@ -156,7 +156,7 @@ const addTodoItem = function() {
     '#addItem'
   )}`;
 
-  sendPostXHR('addItemToTitle', loadItems, requestText);
+  sendPostXHR('user/addItemToTitle', loadItems, requestText);
   resetValue('#addItem');
 };
 
@@ -166,7 +166,7 @@ const loadTodoCollection = function() {
 
 const changeTitleName = function(target) {
   const requestText = `titleId=${target.id}&titleText=${target.innerText}`;
-  sendPostXHR('editTitle', loadTodoCollection, requestText);
+  sendPostXHR('user/editTitle', loadTodoCollection, requestText);
 };
 
 const changeItemText = function(target) {
@@ -174,7 +174,7 @@ const changeItemText = function(target) {
   const requestText = `titleId=${elementId(
     '.highlight'
   )}&itemId=${id}&itemText=${innerText}`;
-  sendPostXHR('editItem', loadTodoCollection, requestText);
+  sendPostXHR('user/editItem', loadTodoCollection, requestText);
 };
 
 const sendRequestIfEnter = function(target) {
@@ -186,6 +186,6 @@ const sendRequestIfEnter = function(target) {
 const main = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = loadTitlesAndItem;
-  httpRequest.open('GET', 'getTodoList');
+  httpRequest.open('GET', 'user/getTodoList');
   httpRequest.send();
 };
