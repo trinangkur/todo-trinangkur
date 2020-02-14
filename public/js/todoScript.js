@@ -107,56 +107,40 @@ const clearValue = function(element, searchBox, selector) {
   makeUnchecked(selector);
 };
 
-const deleteTitle = function(target) {
+const sendPostXHR = function(url, callback, data) {
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = loadTitlesAndItem;
-  httpRequest.open('POST', 'deleteTodoTitle');
-  httpRequest.setRequestHeader(
-    'Content-Type',
-    'application/x-www-form-urlencoded'
-  );
-  httpRequest.send(`titleId=${target.id}`);
+  httpRequest.onload = callback;
+  httpRequest.open('POST', url);
+  const contentType = 'application/x-www-form-urlencoded';
+  httpRequest.setRequestHeader('Content-Type', contentType);
+  httpRequest.send(data);
+};
+
+const deleteTitle = function(target) {
+  sendPostXHR('deleteTodoTitle', loadTitlesAndItem, `titleId=${target.id}`);
 };
 
 const deleteItem = function() {
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = loadItems;
-  httpRequest.open('POST', 'deleteItem');
-  httpRequest.setRequestHeader(
-    'Content-Type',
-    'application/x-www-form-urlencoded'
-  );
-  httpRequest.send(
-    `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
-  );
+  const requestText = `titleId=${elementId('.highlight')}&itemId=${
+    event.target.id
+  }`;
+  sendPostXHR('deleteItem', loadItems, requestText);
 };
 
 const addTodoTitle = () => {
   if (!elementValue('#titleBox')) {
     return;
   }
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = loadTitlesAndItem;
-  httpRequest.open('POST', 'addTodoTitle');
-  httpRequest.setRequestHeader(
-    'Content-Type',
-    'application/x-www-form-urlencoded'
-  );
-  httpRequest.send(`title=${elementValue('#titleBox')}`);
+  const requestText = `title=${elementValue('#titleBox')}`;
+  sendPostXHR('addTodoTitle', loadTitlesAndItem, requestText);
   resetValue('#titleBox');
 };
 
 const mark = function() {
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = loadItems;
-  httpRequest.open('POST', 'markItem');
-  httpRequest.setRequestHeader(
-    'Content-Type',
-    'application/x-www-form-urlencoded'
-  );
-  httpRequest.send(
-    `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
-  );
+  const requestText = `titleId=${elementId('.highlight')}&itemId=${
+    event.target.id
+  }`;
+  sendPostXHR('markItem', loadItems, requestText);
 };
 
 const showTitleItems = function(target) {
@@ -168,47 +152,29 @@ const addTodoItem = function() {
   if (!elementValue('#addItem')) {
     return;
   }
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = loadItems;
-  httpRequest.open('POST', 'addItemToTitle');
-  httpRequest.setRequestHeader(
-    'Content-Type',
-    'application/x-www-form-urlencoded'
-  );
-  httpRequest.send(
-    `titleId=${elementId('.highlight')}&text=${elementValue('#addItem')}`
-  );
+  const requestText = `titleId=${elementId('.highlight')}&text=${elementValue(
+    '#addItem'
+  )}`;
+
+  sendPostXHR('addItemToTitle', loadItems, requestText);
   resetValue('#addItem');
 };
 
+const loadTodoCollection = function() {
+  todoCollection.update(JSON.parse(this.responseText));
+};
+
 const changeTitleName = function(target) {
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    todoCollection.update(JSON.parse(this.responseText));
-  };
-  httpRequest.open('POST', 'editTitle');
-  httpRequest.setRequestHeader(
-    'Content-Type',
-    'application/x-www-form-urlencoded'
-  );
-  httpRequest.send(`titleId=${target.id}&titleText=${target.innerText}`);
+  const requestText = `titleId=${target.id}&titleText=${target.innerText}`;
+  sendPostXHR('editTitle', loadTodoCollection, requestText);
 };
 
 const changeItemText = function(target) {
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    todoCollection.update(JSON.parse(this.responseText));
-  };
   const {id, innerText} = target;
-  httpRequest.open('POST', 'editItem');
-  httpRequest.setRequestHeader(
-    'Content-Type',
-    'application/x-www-form-urlencoded'
-  );
-  const postText = `titleId=${elementId(
+  const requestText = `titleId=${elementId(
     '.highlight'
   )}&itemId=${id}&itemText=${innerText}`;
-  httpRequest.send(postText);
+  sendPostXHR('editItem', loadTodoCollection, requestText);
 };
 
 const sendRequestIfEnter = function(target) {
