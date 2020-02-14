@@ -117,7 +117,11 @@ const sendPostXHR = function(url, callback, data) {
 };
 
 const deleteTitle = function(target) {
-  sendPostXHR('user/deleteTodoTitle', loadTitlesAndItem, `titleId=${target.id}`);
+  sendPostXHR(
+    'user/deleteTodoTitle',
+    loadTitlesAndItem,
+    `titleId=${target.id}`
+  );
 };
 
 const deleteItem = function() {

@@ -7,3 +7,4 @@ const showSignUp = function() {
   document.querySelector('#loginForm').classList.add('hide');
   document.querySelector('#signUpForm').classList.remove('hide');
 };
+
