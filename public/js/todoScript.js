@@ -57,12 +57,14 @@ const updatePageHtml = function() {
 
 const isBadResponse = function(res) {
   const contentType = res.getResponseHeader('Content-Type');
-  return res.status !== 200 || contentType !== 'application/json';
+  return (
+    res.status !== 200 || contentType !== 'application/json; charset=utf-8'
+  );
 };
 
 const loadItems = function() {
   if (isBadResponse(this)) {
-    const errorMessage = JSON.stringify(this.responseText).errorMessage;
+    const errorMessage = JSON.parse(this.responseText).errorMessage;
     return updateHtml('body', `<h1>${res.status} ${errorMessage}</h1>`);
   }
   todoCollection.update(JSON.parse(this.responseText));
@@ -109,6 +111,10 @@ const deleteTitle = function(target) {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = loadTitlesAndItem;
   httpRequest.open('POST', 'deleteTodoTitle');
+  httpRequest.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
   httpRequest.send(`titleId=${target.id}`);
 };
 
@@ -116,6 +122,10 @@ const deleteItem = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = loadItems;
   httpRequest.open('POST', 'deleteItem');
+  httpRequest.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
   httpRequest.send(
     `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
   );
@@ -128,6 +138,10 @@ const addTodoTitle = () => {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = loadTitlesAndItem;
   httpRequest.open('POST', 'addTodoTitle');
+  httpRequest.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
   httpRequest.send(`title=${elementValue('#titleBox')}`);
   resetValue('#titleBox');
 };
@@ -136,6 +150,10 @@ const mark = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = loadItems;
   httpRequest.open('POST', 'markItem');
+  httpRequest.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
   httpRequest.send(
     `titleId=${elementId('.highlight')}&itemId=${event.target.id}`
   );
@@ -153,6 +171,10 @@ const addTodoItem = function() {
   const httpRequest = new XMLHttpRequest();
   httpRequest.onload = loadItems;
   httpRequest.open('POST', 'addItemToTitle');
+  httpRequest.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
   httpRequest.send(
     `titleId=${elementId('.highlight')}&text=${elementValue('#addItem')}`
   );
@@ -165,6 +187,10 @@ const changeTitleName = function(target) {
     todoCollection.update(JSON.parse(this.responseText));
   };
   httpRequest.open('POST', 'editTitle');
+  httpRequest.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
   httpRequest.send(`titleId=${target.id}&titleText=${target.innerText}`);
 };
 
@@ -175,6 +201,10 @@ const changeItemText = function(target) {
   };
   const {id, innerText} = target;
   httpRequest.open('POST', 'editItem');
+  httpRequest.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
   const postText = `titleId=${elementId(
     '.highlight'
   )}&itemId=${id}&itemText=${innerText}`;

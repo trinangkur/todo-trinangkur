@@ -3,27 +3,27 @@ const fs = require('fs');
 
 fs.writeFileSync(
   `${__dirname}/testTodoList.json`,
-  `{"t1580877440369":
+  `{"1580877440369":
   {"name":"hey","tasks":
-  {"i1580877444596":
+  {"1580877444596":
   {"text":"how are you?","status":false}}}}`
 );
-const {requestListener} = require('../lib/router.js');
+const app = require('../lib/router.js');
 
 describe('Home Page', function() {
   it('should give home page / path', function(done) {
-    request(requestListener)
+    request(app)
       .get('/')
       .set('Accept', '*/*')
       .expect(200)
-      .expect('Content-Type', 'text/html')
+      .expect('Content-Type', 'text/html; charset=UTF-8')
       .expect(/TODO/, done);
   });
 });
 
 describe('GET Todo', function() {
   it('should give 200 and json', function(done) {
-    request(requestListener)
+    request(app)
       .get('/getTodoList')
       .set('Accept', '*/*')
       .expect(200, done);
@@ -32,7 +32,7 @@ describe('GET Todo', function() {
 
 describe('GET bad', function() {
   it('should give 404', function(done) {
-    request(requestListener)
+    request(app)
       .get('/bad')
       .set('Accept', '*/*')
       .expect(404, done);
@@ -41,14 +41,14 @@ describe('GET bad', function() {
 
 describe('POST addTodoTitle', function() {
   it('should give 200 as status code and will give json back', function(done) {
-    request(requestListener)
+    request(app)
       .post('/addTodoTitle')
       .send('title=hallo')
       .set('Accept', '*/*')
       .expect(200, done);
   });
   it('should give 400 as status code and will give json back', function(done) {
-    request(requestListener)
+    request(app)
       .post('/addTodoTitle')
       .send('titleHo=hallo')
       .set('Accept', '*/*')
@@ -58,42 +58,42 @@ describe('POST addTodoTitle', function() {
 
 describe('POST mark item', function() {
   it('should give mark one item', function(done) {
-    request(requestListener)
+    request(app)
       .post('/markItem')
-      .send('titleId=t1580877440369&itemId=i1580877444596')
+      .send('titleId=1580877440369&itemId=1580877444596')
       .expect(200, done);
   });
   it('should give 400 as status code and will give json back', function(done) {
-    request(requestListener)
+    request(app)
       .post('/markItem')
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
   });
   it('should give status code as 404 for a given wrong id', function(done) {
-    request(requestListener)
+    request(app)
       .post('/markItem')
-      .send('titleId=t1580877440369&itemId=i15')
+      .send('titleId=1580877440369&itemId=i15')
       .expect(404, done);
   });
 });
 
 describe('POST addItemToTitle', function() {
   it('should give 200 status code', function(done) {
-    request(requestListener)
+    request(app)
       .post('/addItemToTitle')
-      .send('titleId=t1580877440369&text=hallo')
+      .send('titleId=1580877440369&text=hallo')
       .expect(200, done);
   });
   it('should give 400 as status code and will give json back', function(done) {
-    request(requestListener)
+    request(app)
       .post('/addItemToTitle')
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
   });
   it('should give status code as 404 for a given wrong id', function(done) {
-    request(requestListener)
+    request(app)
       .post('/addItemToTitle')
       .send('titleId=t15809&text=hallo')
       .expect(404, done);
@@ -102,20 +102,20 @@ describe('POST addItemToTitle', function() {
 
 describe('POST editTitle', function() {
   it('should give 200 status code', function(done) {
-    request(requestListener)
+    request(app)
       .post('/editTitle')
-      .send('titleId=t1580877440369&titleText=hii')
+      .send('titleId=1580877440369&titleText=hii')
       .expect(200, done);
   });
   it('should give 400 as status code and will give json back', function(done) {
-    request(requestListener)
+    request(app)
       .post('/editTitle')
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
   });
   it('should give 404 as status code when wrong id is given', function(done) {
-    request(requestListener)
+    request(app)
       .post('/editTitle')
       .send('titleId=t157&titleText=hii')
       .expect(404, done);
@@ -124,20 +124,20 @@ describe('POST editTitle', function() {
 
 describe('POST editItem', function() {
   it('should give 200 status code', function(done) {
-    request(requestListener)
+    request(app)
       .post('/editItem')
-      .send('titleId=t1580877440369&itemId=i1580877444596&itemText=drink water')
+      .send('titleId=1580877440369&itemId=1580877444596&itemText=drink water')
       .expect(200, done);
   });
   it('should give 400 as status code and will give json back', function(done) {
-    request(requestListener)
+    request(app)
       .post('/editItem')
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
   });
   it('should give 404 as status code for a given wrong id', function(done) {
-    request(requestListener)
+    request(app)
       .post('/editItem')
       .send('titleId=t158440369&itemId=i1580874596&itemText=drink water')
       .expect(404, done);
@@ -146,20 +146,20 @@ describe('POST editItem', function() {
 
 describe('POST deleteItem', function() {
   it('should give 200 status code', function(done) {
-    request(requestListener)
+    request(app)
       .post('/deleteItem')
-      .send('titleId=t1580877440369&itemId=i1580877444596')
+      .send('titleId=1580877440369&itemId=1580877444596')
       .expect(200, done);
   });
   it('should give 400 as status code and will give json back', function(done) {
-    request(requestListener)
+    request(app)
       .post('/deleteItem')
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
   });
   it('should give 404 for a given wrong id', function(done) {
-    request(requestListener)
+    request(app)
       .post('/deleteItem')
       .send('titleId=t1580877369&itemId=i15808774596')
       .expect(404, done);
@@ -168,20 +168,20 @@ describe('POST deleteItem', function() {
 
 describe('POST deleteTodoTitle', function() {
   it('should give 200 status code', function(done) {
-    request(requestListener)
+    request(app)
       .post('/deleteTodoTitle')
-      .send('titleId=t1580877440369')
+      .send('titleId=1580877440369')
       .expect(200, done);
   });
   it('should give 400 as status code and will give json back', function(done) {
-    request(requestListener)
+    request(app)
       .post('/deleteTodoTitle')
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(400, done);
   });
   it('should give 404 for a given wrong id', function(done) {
-    request(requestListener)
+    request(app)
       .post('/deleteTodoTitle')
       .send('titleId=t15808774409')
       .expect(404, done);
@@ -193,20 +193,10 @@ describe('POST deleteTodoTitle', function() {
 
 describe('POST notfound', function() {
   it('should give 404 status code', function(done) {
-    request(requestListener)
+    request(app)
       .post('/hey hey')
       .send('titleHo=hallo')
       .set('Accept', '*/*')
       .expect(404, done);
-  });
-});
-
-describe('PUT method not allowed', function() {
-  it('should give 405 as status code', function(done) {
-    request(requestListener)
-      .put('/deleteTodoTitle')
-      .send('titleHo=hallo')
-      .set('Accept', '*/*')
-      .expect(405, done);
   });
 });

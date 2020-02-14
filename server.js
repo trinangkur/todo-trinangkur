@@ -1,13 +1,11 @@
-const http = require('http');
 
 const setupFilePath = require('./setup');
 setupFilePath();
 
-const {requestListener} = require('./lib/router.js');
+const app = require('./lib/router.js');
 
 const main = (port = 3000) => {
-  const server = new http.Server(requestListener);
-  server.listen(port, () => console.log(`listening at :${port}`));
+  app.listen(port, () => console.log(`listening on ${port}`));
 };
 
 main(process.argv[2]);
