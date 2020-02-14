@@ -200,3 +200,12 @@ describe('POST notfound', function() {
       .expect(404, done);
   });
 });
+
+describe('POST redirect login', function() {
+  it('should redirect to user url when post login request', function(done) {
+    request(app)
+      .post('/login')
+      .set('Accept', '*/*')
+      .expect(302, done);
+  });
+});
