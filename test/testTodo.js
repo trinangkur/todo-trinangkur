@@ -115,7 +115,7 @@ describe('DataStore', function() {
       };
       const dataStore = new DataStore(reader, writer, 'anyPath');
       dataStore.initialize();
-      dataStore.addTodo('rey-v@thi', '12');
+      dataStore.deleteTodo('rey-v@thi', '12');
     });
   });
   describe('addTodoItem', function() {
