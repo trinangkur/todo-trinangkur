@@ -241,7 +241,7 @@ describe('DataStore', function() {
     });
   });
   describe('nextTodoId', function() {
-    it('should return false when user id is not present', () => {
+    it('should return next todo id', () => {
       const reader = () => {
         return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
       };
@@ -249,15 +249,31 @@ describe('DataStore', function() {
       dataStore.initialize();
       assert.strictEqual(dataStore.nextTodoId('rey-v@thi'), 2);
     });
+    it('should return 1 for no todo being there', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      assert.strictEqual(dataStore.nextTodoId('rey-v@thi'), 1);
+    });
   });
   describe('nextItemId', function() {
-    it('should return false when user id is not present', () => {
+    it('should return next id', () => {
       const reader = () => {
         return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
       };
       const dataStore = new DataStore(reader);
       dataStore.initialize();
       assert.strictEqual(dataStore.nextItemId('rey-v@thi', '1'), 2);
+    });
+    it('should return 1 when next item is not there', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      assert.strictEqual(dataStore.nextItemId('rey-v@thi', '1'), 1);
     });
   });
 });
