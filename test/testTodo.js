@@ -1,10 +1,10 @@
 const assert = require('assert');
-const {Todo, TodoCollection} = require('../lib/todo');
+const {Todo, TodoList} = require('../lib/todo');
 
-describe('TodoCollection', function() {
+describe('todoList', function() {
   describe('load', function() {
     it('should return empty object, when empty string is given', function() {
-      assert.deepStrictEqual(TodoCollection.load(''), new TodoCollection());
+      assert.deepStrictEqual(TodoList.load(''), new TodoList());
     });
     it('should get same object for given same json', function() {
       const json = {
@@ -19,25 +19,22 @@ describe('TodoCollection', function() {
         }
       };
       assert.deepStrictEqual(
-        TodoCollection.load(JSON.stringify(json)),
-        TodoCollection.load(JSON.stringify(json))
+        TodoList.load(JSON.stringify(json)),
+        TodoList.load(JSON.stringify(json))
       );
     });
   });
   describe('addTodo', function() {
-    it('should add todo in todoCollection', function() {
+    it('should add todo in todoList', function() {
       const json = {
         t1581337001157: {
           name: 'hey',
           tasks: {}
         }
       };
-      const todoCollection = TodoCollection.load('');
-      todoCollection.addTodo('t1581337001157', new Todo('hey'));
-      assert.deepStrictEqual(
-        todoCollection,
-        TodoCollection.load(JSON.stringify(json))
-      );
+      const todoList = TodoList.load('');
+      todoList.addTodo('t1581337001157', new Todo('hey'));
+      assert.deepStrictEqual(todoList, TodoList.load(JSON.stringify(json)));
     });
   });
   describe('addTodoItem', function() {
@@ -59,12 +56,9 @@ describe('TodoCollection', function() {
           }
         }
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      todoCollection.addTodoItem('t1581337001157', {text: 'hey hey', id: 'i1'});
-      assert.deepStrictEqual(
-        todoCollection,
-        TodoCollection.load(JSON.stringify(json2))
-      );
+      const todoList = TodoList.load(JSON.stringify(json1));
+      todoList.addTodoItem('t1581337001157', {text: 'hey hey', id: 'i1'});
+      assert.deepStrictEqual(todoList, TodoList.load(JSON.stringify(json2)));
     });
   });
   describe('toggleItemStatus', function() {
@@ -91,12 +85,9 @@ describe('TodoCollection', function() {
           }
         }
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      todoCollection.toggleItemStatus('t1581337001157', 'i1581337003892');
-      assert.deepStrictEqual(
-        todoCollection,
-        TodoCollection.load(JSON.stringify(json2))
-      );
+      const todoList = TodoList.load(JSON.stringify(json1));
+      todoList.toggleItemStatus('t1581337001157', 'i1581337003892');
+      assert.deepStrictEqual(todoList, TodoList.load(JSON.stringify(json2)));
     });
   });
   describe('deleteTodo', function() {
@@ -112,9 +103,9 @@ describe('TodoCollection', function() {
           }
         }
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      todoCollection.deleteTodo('t1581337001157');
-      assert.deepStrictEqual(todoCollection, TodoCollection.load('{}'));
+      const todoList = TodoList.load(JSON.stringify(json1));
+      todoList.deleteTodo('t1581337001157');
+      assert.deepStrictEqual(todoList, TodoList.load('{}'));
     });
   });
   describe('deleteTodoItem', function() {
@@ -136,12 +127,9 @@ describe('TodoCollection', function() {
           tasks: {}
         }
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      todoCollection.deleteTodoItem('t1581337001157', 'i1581337003892');
-      assert.deepStrictEqual(
-        todoCollection,
-        TodoCollection.load(JSON.stringify(json2))
-      );
+      const todoList = TodoList.load(JSON.stringify(json1));
+      todoList.deleteTodoItem('t1581337001157', 'i1581337003892');
+      assert.deepStrictEqual(todoList, TodoList.load(JSON.stringify(json2)));
     });
   });
   describe('editTitle', function() {
@@ -168,12 +156,9 @@ describe('TodoCollection', function() {
           }
         }
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      todoCollection.editTitle('t1581337001157', 'hi');
-      assert.deepStrictEqual(
-        todoCollection,
-        TodoCollection.load(JSON.stringify(json2))
-      );
+      const todoList = TodoList.load(JSON.stringify(json1));
+      todoList.editTitle('t1581337001157', 'hi');
+      assert.deepStrictEqual(todoList, TodoList.load(JSON.stringify(json2)));
     });
   });
   describe('editItem', function() {
@@ -200,12 +185,9 @@ describe('TodoCollection', function() {
           }
         }
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      todoCollection.editItem('t1581337001157', 'i1581337003892', 'hey me');
-      assert.deepStrictEqual(
-        todoCollection,
-        TodoCollection.load(JSON.stringify(json2))
-      );
+      const todoList = TodoList.load(JSON.stringify(json1));
+      todoList.editItem('t1581337001157', 'i1581337003892', 'hey me');
+      assert.deepStrictEqual(todoList, TodoList.load(JSON.stringify(json2)));
     });
   });
   describe('toJson', function() {
@@ -216,8 +198,8 @@ describe('TodoCollection', function() {
           tasks: {}
         }
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      assert.strictEqual(todoCollection.toJson(), JSON.stringify(json1));
+      const todoList = TodoList.load(JSON.stringify(json1));
+      assert.strictEqual(todoList.toJson(), JSON.stringify(json1));
     });
   });
   describe('writeTo', function() {
@@ -232,8 +214,8 @@ describe('TodoCollection', function() {
         assert.strictEqual(json, JSON.stringify(json1));
         assert.strictEqual(path, './data/thisIsThePath');
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      todoCollection.writeTo(writer, './data/thisIsThePath');
+      const todoList = TodoList.load(JSON.stringify(json1));
+      todoList.writeTo(writer, './data/thisIsThePath');
     });
   });
   describe('nextTodoId', function() {
@@ -252,8 +234,8 @@ describe('TodoCollection', function() {
           tasks: {}
         }
       };
-      const todoCollection = TodoCollection.load(JSON.stringify(json1));
-      assert.strictEqual(todoCollection.nextTodoId(), 3);
+      const todoList = TodoList.load(JSON.stringify(json1));
+      assert.strictEqual(todoList.nextTodoId(), 3);
     });
   });
 });
