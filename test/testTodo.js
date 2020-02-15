@@ -240,4 +240,24 @@ describe('DataStore', function() {
       assert.ok(!dataStore.checkUser('tri'));
     });
   });
+  describe('nextTodoId', function() {
+    it('should return false when user id is not present', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      assert.strictEqual(dataStore.nextTodoId('rey-v@thi'), 2);
+    });
+  });
+  describe('nextItemId', function() {
+    it('should return false when user id is not present', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      assert.strictEqual(dataStore.nextItemId('rey-v@thi', '1'), 2);
+    });
+  });
 });
