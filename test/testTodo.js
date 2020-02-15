@@ -135,85 +135,75 @@ describe('DataStore', function() {
       dataStore.addTodoItem('rey-v@thi', '1', {id: 1, text: 'Hei'});
     });
   });
-
-  //   describe('editItem', function() {
-  //     it('should edit the item of given todoId and itemId', () => {
-  //       const json1 = {
-  //         12: {
-  //           name: 'hey',
-  //           tasks: {
-  //             21: {
-  //               text: 'hey you',
-  //               status: false
-  //             }
-  //           }
-  //         }
-  //       };
-  //       const json2 = {
-  //         12: {
-  //           name: 'hey',
-  //           tasks: {
-  //             21: {
-  //               text: 'hey me',
-  //               status: false
-  //             }
-  //           }
-  //         }
-  //       };
-  //       const todoList = TodoCollection.load(JSON.stringify(json1));
-  //       todoList.editItem('12', '21', 'hey me');
-  //       assert.deepStrictEqual(
-  //         todoList,
-  //         TodoCollection.load(JSON.stringify(json2))
-  //       );
-  //     });
-  //   });
-  //   describe('toJson', function() {
-  //     it('should return the json stringify of todoObject', function() {
-  //       const json1 = {
-  //         12: {
-  //           name: 'hey',
-  //           tasks: {}
-  //         }
-  //       };
-  //       const todoList = TodoCollection.load(JSON.stringify(json1));
-  //       assert.strictEqual(todoList.toJson(), JSON.stringify(json1));
-  //     });
-  //   });
-  //   describe('writeTo', function() {
-  //     it('should give writer the json stringify of todoObject', function() {
-  //       const json1 = {
-  //         12: {
-  //           name: 'hey',
-  //           tasks: {}
-  //         }
-  //       };
-  //       const writer = (path, json) => {
-  //         assert.strictEqual(json, JSON.stringify(json1));
-  //         assert.strictEqual(path, './data/thisIsThePath');
-  //       };
-  //       const todoList = TodoCollection.load(JSON.stringify(json1));
-  //       todoList.writeTo(writer, './data/thisIsThePath');
-  //     });
-  //   });
-  //   describe('nextTodoId', function() {
-  //     it('should edit the item of given todoId and itemId', () => {
-  //       const json1 = {
-  //         '2': {
-  //           name: 'hey',
-  //           tasks: {}
-  //         },
-  //         '1': {
-  //           name: 'hey you',
-  //           tasks: {}
-  //         },
-  //         '-1': {
-  //           name: 'hey ho',
-  //           tasks: {}
-  //         }
-  //       };
-  //       const todoList = TodoCollection.load(JSON.stringify(json1));
-  //       assert.strictEqual(todoList.nextTodoId(), 3);
-  //     });
-  //   });
+  describe('toggleItemStatus', function() {
+    it('should toggle the status of a todo item for a given user', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const writer = (path, content) => {
+        assert.strictEqual(path, 'anyPath');
+        assert.strictEqual(
+          content,
+          '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":true}}}}}'
+        );
+      };
+      const dataStore = new DataStore(reader, writer, 'anyPath');
+      dataStore.initialize();
+      dataStore.toggleItemStatus('rey-v@thi', '1', '1');
+    });
+  });
+  describe('deleteTodoItem', function() {
+    it('should delete a todo item for a given user', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const writer = (path, content) => {
+        assert.strictEqual(path, 'anyPath');
+        assert.strictEqual(
+          content,
+          '{"rey-v@thi":{"1":{"name":"Hello","tasks":{}}}}'
+        );
+      };
+      const dataStore = new DataStore(reader, writer, 'anyPath');
+      dataStore.initialize();
+      dataStore.deleteTodoItem('rey-v@thi', '1', '1');
+    });
+  });
+  describe('editItem', function() {
+    it('should edit the item of a given todoId and itemId for a given user', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const writer = (path, content) => {
+        assert.strictEqual(path, 'anyPath');
+        assert.strictEqual(
+          content,
+          '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hoi","status":false}}}}}'
+        );
+      };
+      const dataStore = new DataStore(reader, writer, 'anyPath');
+      dataStore.initialize();
+      dataStore.editItem('rey-v@thi', '1', '1', 'Hoi');
+    });
+  });
+  describe('isTodoPresent ', function() {
+    it('should return true when the given id is present', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      dataStore.isTodoPresent('rey-v@thi', '1');
+    });
+  });
+  describe('isTaskPresent ', function() {
+    it('should return true when the given task id is present', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      dataStore.isTaskPresent('rey-v@thi', '1', '1');
+    });
+  });
 });
