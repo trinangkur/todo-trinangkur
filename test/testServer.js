@@ -8,6 +8,9 @@ fs.writeFileSync(
   {"1580877444596":
   {"text":"how are you?","status":false}}}}`
 );
+
+fs.writeFileSync(`${__dirname}/testUser.json`, '');
+
 const app = require('../lib/router.js');
 
 describe('Home Page', function() {
@@ -207,5 +210,8 @@ describe('POST redirect login', function() {
       .post('/login')
       .set('Accept', '*/*')
       .expect(302, done);
+  });
+  after(() => {
+    fs.unlinkSync(`${__dirname}/testUser.json`);
   });
 });
