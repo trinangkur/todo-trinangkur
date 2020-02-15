@@ -193,7 +193,15 @@ describe('DataStore', function() {
       };
       const dataStore = new DataStore(reader);
       dataStore.initialize();
-      dataStore.isTodoPresent('rey-v@thi', '1');
+      assert.ok(dataStore.isTodoPresent('rey-v@thi', '1'));
+    });
+    it('should return false when the given id is not present', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      assert.ok(!dataStore.isTodoPresent('rey-v@thi', '2'));
     });
   });
   describe('isTaskPresent ', function() {
@@ -203,7 +211,33 @@ describe('DataStore', function() {
       };
       const dataStore = new DataStore(reader);
       dataStore.initialize();
-      dataStore.isTaskPresent('rey-v@thi', '1', '1');
+      assert.ok(dataStore.isTaskPresent('rey-v@thi', '1', '1'));
+    });
+    it('should return false when the given task id is not present', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      assert.ok(!dataStore.isTaskPresent('rey-v@thi', '1', '3'));
+    });
+  });
+  describe('checkUser', function() {
+    it('should return true when user id is present', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      assert.ok(dataStore.checkUser('rey-v@thi'));
+    });
+    it('should return false when user id is not present', () => {
+      const reader = () => {
+        return '{"rey-v@thi":{"1":{"name":"Hello","tasks":{"1":{"text":"Hei","status":false}}}}}';
+      };
+      const dataStore = new DataStore(reader);
+      dataStore.initialize();
+      assert.ok(!dataStore.checkUser('tri'));
     });
   });
 });
