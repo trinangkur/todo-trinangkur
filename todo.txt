@@ -34,8 +34,8 @@ __done__ decide the data structure for holding user details.
 __done__ read from file for every request.
 __done__ convert from http module to express.
 __done__ we will load the whole data when server starts in app local.
-decide how a user can access his todoCollection.
-for first step any one who login will be able to see the whole todo.
-then add a feature where each user will get only their todo.
-and add ability of editing their todo only.
-then we will add session.
+__done__ decide how a user can access his todoCollection.
+__done__ for first step any one who login will be able to see the whole todo.
+__done__ then add a feature where each user will get only their todo.
+__done__ and add ability of editing their todo only.
+__done__ then we will add session.
