@@ -54,6 +54,7 @@
             placeholder="Enter preferred userId"
             required
             class="formBox"
+            onblur="checkUserId(this.value)"
           />
           <input
             type="password"
@@ -62,8 +63,16 @@
             required
             class="formBox"
           />
-          <input type="submit" class="submitButton" value="Sign Up" />
+          <input
+            type="submit"
+            class="submitButton"
+            value="Sign Up"
+            id="signUp-button"
+          />
         </form>
+        <p class="warn hide" id="signUpWarning">
+          This userId is taken. Try another
+        </p>
         <div id="orDiv">
           <div class="line"></div>
           <h3>or</h3>

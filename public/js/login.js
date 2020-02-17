@@ -21,6 +21,24 @@ const sendPostXHR = function(url, callback, data) {
 const showWarning = selector =>
   document.querySelector(selector).classList.remove('hide');
 
+const removeWarning = selector =>
+  document.querySelector(selector).classList.add('hide');
+
+const isUserIdAvailable = function() {
+  const response = JSON.parse(this.responseText);
+  const signUpButton = document.querySelector('#signUp-button');
+  if (!response.isSuccessful) {
+    signUpButton.classList.add('un-clickable');
+    return showWarning('#signUpWarning');
+  }
+  signUpButton.classList.remove('un-clickable');
+  removeWarning('#signUpWarning');
+};
+
+const checkUserId = function(userId) {
+  sendPostXHR('isUserIdAvailable', isUserIdAvailable, `userId=${userId}`);
+};
+
 const loginNewUser = function() {
   const response = JSON.parse(this.responseText);
   if (response.isSuccessful) {

@@ -72,10 +72,12 @@ form {
   border-width: 0.6px;
   border-style: solid;
   border-color: lightgrey;
-  border-image: initial;
 }
 
 #signUpLink {
   color: darkblue;
   cursor: pointer;
+}
+.un-clickable {
+  pointer-events: none;
 }
