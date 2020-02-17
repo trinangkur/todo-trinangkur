@@ -3,14 +3,14 @@ const fs = require('fs');
 const sinon = require('sinon');
 
 const userJson = {
-  'rey-v@thi': {name: 'revathi', password: '123'},
-  'trinangkur@todo': {name: 'trinangkur', password: '123'},
-  'ras@gmail.com': {name: 'rashmi', password: '1234'}
+  'rey-v@thi': { name: 'revathi', password: '123' },
+  'trinangkur@todo': { name: 'trinangkur', password: '123' },
+  'ras@gmail.com': { name: 'rashmi', password: '1234' }
 };
 
 const todoJson = {
   'rey-v@thi': {
-    '1': {name: 'hey', tasks: {'1': {text: 'hi', status: false}}}
+    '1': { name: 'hey', tasks: { '1': { text: 'hi', status: false } } }
   }
 };
 
@@ -49,7 +49,7 @@ describe('POST signUp', function() {
   });
 });
 
-describe('POST redirect login', function() {
+describe('POST login', function() {
   before(() => {
     const date = new Date(1581765621982);
     sinon.useFakeTimers(date);
@@ -83,9 +83,15 @@ describe('Home Page', function() {
   });
   it('should give home page / path', function(done) {
     request(app)
-      .get('/')
+      .get('/index.html')
       .set('Accept', '*/*')
-      .set('Cookie', fakeDate.now)
+      .set('Cookie', `_sid=${fakeDate.now}`)
+      .expect(200, done);
+  });
+  it('should give home page / path', function(done) {
+    request(app)
+      .get('/index.html')
+      .set('Accept', '*/*')
       .expect(302, done);
   });
   after(() => {
@@ -110,7 +116,7 @@ describe('GET Todo', function() {
     request(app)
       .get('/getTodoList')
       .set('Accept', '*/*')
-      .expect(302, done);
+      .expect(401, done);
   });
   after(() => {
     sinon.restore();
