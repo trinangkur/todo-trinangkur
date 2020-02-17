@@ -18,7 +18,7 @@ fs.writeFileSync(`${__dirname}/testTodoList.json`, JSON.stringify(todoJson));
 
 fs.writeFileSync(`${__dirname}/testUser.json`, JSON.stringify(userJson));
 
-const app = require('../lib/router.js');
+const app = require('../lib/app.js');
 
 describe('POST redirect login', function() {
   before(() => {
