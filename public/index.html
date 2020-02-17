@@ -8,40 +8,43 @@
   </head>
 
   <body onload="main()">
-    <div class="topHeading">
-      <h1>TODO</h1>
-      <input type="checkbox" class="togglingButton" id="searchTodoPanel" />
-      <label
-        for="searchTodoPanel"
-        onclick="clearValue(this,'#titleSearchBox','#searchTaskPanel')"
-      >
-        <div>
-          <input
-            type="text"
-            id="titleSearchBox"
-            placeholder="Search Todo Title"
-            onkeyup="searchTitle(this)"
-            onclick="stopPropagation();"
-          />
-          <div class="searchTodo"></div>
-        </div>
-      </label>
-      <input type="checkbox" class="togglingButton" id="searchTaskPanel" />
-      <label
-        for="searchTaskPanel"
-        onclick="clearValue(this, '#taskSearchBar','#searchTodoPanel')"
-      >
-        <div>
-          <input
-            type="text"
-            id="taskSearchBar"
-            placeholder="Search Todo Task"
-            onkeyup="searchTasks(this)"
-            onclick="stopPropagation();"
-          />
-          <div class="searchTask"></div>
-        </div>
-      </label>
+    <div id="topBox">
+      <div id="topHeading">
+        <h1>TODO</h1>
+        <input type="checkbox" class="togglingButton" id="searchTodoPanel" />
+        <label
+          for="searchTodoPanel"
+          onclick="clearValue(this,'#titleSearchBox','#searchTaskPanel')"
+        >
+          <div>
+            <input
+              type="text"
+              id="titleSearchBox"
+              placeholder="Search Todo Title"
+              onkeyup="searchTitle(this)"
+              onclick="stopPropagation();"
+            />
+            <div class="searchTodo"></div>
+          </div>
+        </label>
+        <input type="checkbox" class="togglingButton" id="searchTaskPanel" />
+        <label
+          for="searchTaskPanel"
+          onclick="clearValue(this, '#taskSearchBar','#searchTodoPanel')"
+        >
+          <div>
+            <input
+              type="text"
+              id="taskSearchBar"
+              placeholder="Search Todo Task"
+              onkeyup="searchTasks(this)"
+              onclick="stopPropagation();"
+            />
+            <div class="searchTask"></div>
+          </div>
+        </label>
+      </div>
+      <img src="./resource/logout.png" alt="not found" id="logout" />
     </div>
     <hr />
     <div id="container">
