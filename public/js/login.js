@@ -9,14 +9,6 @@ const showSignUp = function() {
 };
 
 const elementValue = selector => document.querySelector(selector).value;
-const sendPostXHR = function(url, callback, data) {
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = callback;
-  httpRequest.open('POST', url);
-  const contentType = 'application/x-www-form-urlencoded';
-  httpRequest.setRequestHeader('Content-Type', contentType);
-  httpRequest.send(data);
-};
 
 const showWarning = selector =>
   document.querySelector(selector).classList.remove('hide');
