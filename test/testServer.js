@@ -23,7 +23,7 @@ const app = require('../lib/router.js');
 describe('POST redirect login', function() {
   before(() => {
     const date = new Date(1581765621982);
-    const fakeDate = sinon.useFakeTimers(date);
+    sinon.useFakeTimers(date);
   });
   it('should redirect to user url when post login request', function(done) {
     request(app)
