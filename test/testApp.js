@@ -106,6 +106,12 @@ describe('GET Todo', function() {
       .set('Cookie', `_sid=${fakeDate.now}`)
       .expect(200, done);
   });
+  it('should redirect when cookie is not there', function(done) {
+    request(app)
+      .get('/getTodoList')
+      .set('Accept', '*/*')
+      .expect(302, done);
+  });
   after(() => {
     sinon.restore();
   });
