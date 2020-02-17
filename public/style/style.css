@@ -251,4 +251,5 @@ h1 {
 #logout {
   height: 40px;
   cursor: pointer;
+  margin: 5px 15px;
 }
