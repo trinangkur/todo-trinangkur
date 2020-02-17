@@ -117,11 +117,7 @@ const sendPostXHR = function(url, callback, data) {
 };
 
 const deleteTitle = function(target) {
-  sendPostXHR(
-    'deleteTodoTitle',
-    loadTitlesAndItem,
-    `titleId=${target.id}`
-  );
+  sendPostXHR('deleteTodoTitle', loadTitlesAndItem, `titleId=${target.id}`);
 };
 
 const deleteItem = function() {
@@ -179,6 +175,13 @@ const changeItemText = function(target) {
     '.highlight'
   )}&itemId=${id}&itemText=${innerText}`;
   sendPostXHR('editItem', loadTodoCollection, requestText);
+};
+
+const logout = function() {
+  document.cookie = '_sid=""; expires=Thu, 18 Dec 2013 12:00:00 UTC';
+  sendPostXHR('logout', () => {
+    location.assign('login.html');
+  });
 };
 
 const sendRequestIfEnter = function(target) {
