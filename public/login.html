@@ -9,23 +9,29 @@
     <div id="loginBox">
       <h1>TODO</h1>
       <div id="loginForm">
-        <form action="login" method="POST">
-          <input
-            type="email"
-            name="userId"
-            placeholder="Please enter your user Id"
-            required
-            class="formBox"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            class="formBox"
-          />
-          <input type="submit" class="submitButton" value="Login" />
-        </form>
+        <input
+          type="email"
+          name="userId"
+          id="userId"
+          placeholder="Please enter your user Id"
+          required
+          class="formBox"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          required
+          class="formBox"
+        />
+        <input
+          type="submit"
+          class="submitButton"
+          value="Login"
+          onclick="login()"
+        />
+        <p class="warn hide" id="loginWarning">incorrect user Id or password</p>
         <div id="orDiv">
           <div class="line"></div>
           <h3>or</h3>

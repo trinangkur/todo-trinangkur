@@ -30,14 +30,16 @@ describe('POST redirect login', function() {
       .post('/login')
       .set('Accept', '*/*')
       .send('userId=rey-v@thi&password=123')
-      .expect(302, done);
+      .expect(200, done)
+      .expect(/{"isSuccessful":true}/);
   });
   it('should redirect to login when the user details is not in userStore', function(done) {
     request(app)
       .post('/login')
       .set('Accept', '*/*')
       .send('userId=imNotUser&password=123')
-      .expect(302, done);
+      .expect(200, done)
+      .expect(/{"isSuccessful":false}/);
   });
   after(() => {
     sinon.restore();

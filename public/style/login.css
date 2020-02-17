@@ -31,6 +31,10 @@ form {
   color: lightgrey;
 }
 
+.warn {
+  color: red;
+}
+
 .hide {
   transform: scale(0);
   height: 0px;

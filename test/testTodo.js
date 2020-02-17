@@ -63,7 +63,7 @@ describe('DataStore', function() {
       };
       const writer = (path, content) => {
         assert.strictEqual(path, 'anyPath');
-        assert.strictEqual(content, '{"rey-v@thi": {},"tri":{}}');
+        assert.strictEqual(content, '{"rey-v@thi":{},"tri":{}}');
       };
       const dataStore = new DataStore(reader, writer, 'anyPath');
       dataStore.initialize();
