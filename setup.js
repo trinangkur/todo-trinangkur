@@ -1,9 +1,17 @@
 const fs = require('fs');
-const setupFilePath = function() {
-  if (!fs.existsSync('data/todoList.json')) {
-    fs.mkdirSync('./data');
-    fs.writeFileSync('./data/todoList.json', '');
+
+const creatFile = function(path) {
+  if (!fs.existsSync(path)) {
+    fs.writeFileSync(path, '');
   }
 };
 
-module.exports = setupFilePath;
+const setupDataStore = function() {
+  if (!fs.existsSync('data/')) {
+    fs.mkdirSync('./data');
+  }
+  creatFile('./data/todoList.json');
+  creatFile('./data/user.json');
+};
+
+module.exports = setupDataStore;

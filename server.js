@@ -1,5 +1,5 @@
-const setupFilePath = require('./setup');
-setupFilePath();
+const setupDataStore = require('./setup');
+setupDataStore();
 
 const app = require('./lib/app.js');
 
