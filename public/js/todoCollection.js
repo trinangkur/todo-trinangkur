@@ -25,7 +25,7 @@ const getItemHtml = function(tasks, key) {
   id="${key}" contentEditable="true"
   onkeydown = "sendRequestIfEnter(this)" onblur = "changeItemText(this)">
   ${tasks[key].text}</p></div>
-  <img src="resource/cross.png" class="img" id="${key}"
+  <img src="resource/bin.png" class="img" id="${key}"
   onclick="deleteItem()"/></div>`;
 };
 
@@ -36,7 +36,7 @@ const getTitleHtml = function(todo, key) {
   contentEditable="true"
   onkeydown = "sendRequestIfEnter(this)"
   onblur = "changeTitleName(this)">${todo[key].name}</h2>
-  <img src="resource/cross.png" class="img" 
+  <img src="resource/bin.png" class="img" 
   id="${key}" onclick="deleteTitle(this)"/>
   </div>`;
 };
