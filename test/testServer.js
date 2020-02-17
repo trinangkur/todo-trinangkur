@@ -20,8 +20,27 @@ fs.writeFileSync(`${__dirname}/testUser.json`, JSON.stringify(userJson));
 
 const app = require('../lib/app.js');
 
+describe('POST isUserIdAvailable', function() {
+  it('should check the given userID, and indicate whether it exist, if it exist', function(done) {
+    request(app)
+      .post('/isUserIdAvailable')
+      .set('Accept', '*/*')
+      .send('userId=t@c')
+      .expect(200, done)
+      .expect(/{"isSuccessful":true}/);
+  });
+  it('should check the given userID, and return false, if does not exist', function(done) {
+    request(app)
+      .post('/isUserIdAvailable')
+      .set('Accept', '*/*')
+      .send('userId=rey-v@thi')
+      .expect(200, done)
+      .expect(/{"isSuccessful":false}/);
+  });
+});
+
 describe('POST signUp', function() {
-  it('should redirect to user url when post login request', function(done) {
+  it('should redirect to login url when post signUp request', function(done) {
     request(app)
       .post('/signUp')
       .set('Accept', '*/*')
@@ -275,7 +294,7 @@ describe('POST deleteItem', function() {
     const date = new Date(1581765621982);
     fakeDate = sinon.useFakeTimers(date);
   });
-  it('should give 200 status code', function(done) {
+  it('should give 200 status code when it is deleted', function(done) {
     request(app)
       .post('/deleteItem')
       .set('Cookie', `_sid=${fakeDate.now}`)
@@ -308,7 +327,7 @@ describe('POST deleteTodoTitle', function() {
     const date = new Date(1581765621982);
     fakeDate = sinon.useFakeTimers(date);
   });
-  it('should give 200 status code', function(done) {
+  it('should give 200 status code, when the task is deleted', function(done) {
     request(app)
       .post('/deleteTodoTitle')
       .set('Cookie', `_sid=${fakeDate.now}`)
@@ -333,6 +352,25 @@ describe('POST deleteTodoTitle', function() {
   after(() => {
     fs.unlinkSync(`${__dirname}/testTodoList.json`);
     fs.unlinkSync(`${__dirname}/testUser.json`);
+    sinon.restore();
+  });
+});
+
+describe('POST logout', function() {
+  let fakeDate;
+  beforeEach(() => {
+    const date = new Date(1581765621982);
+    fakeDate = sinon.useFakeTimers(date);
+  });
+  it('should logout and clear session', function(done) {
+    request(app)
+      .post('/logout')
+      .set('Accept', '*/*')
+      .set('Cookie', `_sid=${fakeDate.now}`)
+      .send('name=tc&userId=t@c&password=123')
+      .expect(200, done);
+  });
+  afterEach(() => {
     sinon.restore();
   });
 });

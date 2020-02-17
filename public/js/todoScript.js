@@ -178,8 +178,8 @@ const changeItemText = function(target) {
 };
 
 const logout = function() {
-  document.cookie = '_sid=""; expires=Thu, 18 Dec 2013 12:00:00 UTC';
   sendPostXHR('logout', () => {
+    document.cookie = '_sid=""; expires=Thu, 18 Dec 2013 12:00:00 UTC';
     location.assign('login.html');
   });
 };
