@@ -20,6 +20,16 @@ fs.writeFileSync(`${__dirname}/testUser.json`, JSON.stringify(userJson));
 
 const app = require('../lib/app.js');
 
+describe('POST signUp', function() {
+  it('should redirect to user url when post login request', function(done) {
+    request(app)
+      .post('/signUp')
+      .set('Accept', '*/*')
+      .send('name=tc&userId=t@c&password=123')
+      .expect(302, done);
+  });
+});
+
 describe('POST redirect login', function() {
   before(() => {
     const date = new Date(1581765621982);
