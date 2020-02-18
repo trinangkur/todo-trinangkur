@@ -79,9 +79,10 @@ const searchTasks = function(searchedItem) {
 };
 
 const clearValue = function(element, searchBox, selector) {
-  element.value = '';
-  searchTitle(element);
   resetValue(searchBox);
+  element.value = '';
+  searchTasks(element);
+  searchTitle(element);
   makeUnchecked(selector);
 };
 
