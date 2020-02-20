@@ -31,8 +31,8 @@ const updateHtml = (selector, html) => {
 };
 
 const clearItems = () => `<div id="itemAdder" class="hide">
-  <input type="text" id="addItem" placeholder="Add Todo Items" />
-  <input type="submit" id="addItemButton" value="Add Item" 
+  <input type="text" id="addItem" placeholder="Add Todo Task" />
+  <input type="submit" id="addItemButton" value="Add Task" 
   onclick="addTodoItem()" />
 </div>
 <div id="todoItems"></div>`;
