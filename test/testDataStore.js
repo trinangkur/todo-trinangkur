@@ -11,7 +11,7 @@ describe('DataStore', function() {
       const writer = () => {};
       const dataStore = new DataStore(reader, writer, 'anyPath');
       dataStore.initialize();
-      assert.ok('todoCollectio' in dataStore);
+      assert.ok('todoCollection' in dataStore);
     });
     it('should hve todoCollection in it while reader returns some data', () => {
       const reader = () => {
@@ -30,7 +30,7 @@ describe('DataStore', function() {
       const writer = () => {};
       const dataStore = new DataStore(reader, writer, 'anyPath');
       dataStore.initialize('hey');
-      assert.ok('todoCollectio' in dataStore);
+      assert.ok('todoCollection' in dataStore);
     });
   });
   describe('read', function() {
