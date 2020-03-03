@@ -11,7 +11,7 @@ describe('DataStore', function() {
       const writer = () => {};
       const dataStore = new DataStore(reader, writer, 'anyPath');
       dataStore.initialize();
-      assert.ok('todoCollection' in dataStore);
+      assert.ok('todoCollectio' in dataStore);
     });
     it('should hve todoCollection in it while reader returns some data', () => {
       const reader = () => {
