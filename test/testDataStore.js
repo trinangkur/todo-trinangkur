@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {Todo} = require('../lib/todo');
+const { Todo } = require('../lib/todo');
 const DataStore = require('../lib/dataStore');
 
 describe('DataStore', function() {
@@ -11,7 +11,7 @@ describe('DataStore', function() {
       const writer = () => {};
       const dataStore = new DataStore(reader, writer, 'anyPath');
       dataStore.initialize();
-      assert.ok('todoCollection' in dataStore);
+      assert.ok('todoCollectio' in dataStore);
     });
     it('should hve todoCollection in it while reader returns some data', () => {
       const reader = () => {
@@ -132,7 +132,7 @@ describe('DataStore', function() {
       };
       const dataStore = new DataStore(reader, writer, 'anyPath');
       dataStore.initialize();
-      dataStore.addTodoItem('rey-v@thi', '1', {id: 1, text: 'Hei'});
+      dataStore.addTodoItem('rey-v@thi', '1', { id: 1, text: 'Hei' });
     });
   });
   describe('toggleItemStatus', function() {
