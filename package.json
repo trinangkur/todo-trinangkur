@@ -10,7 +10,8 @@
   "scripts": {
     "test": "export DATA_STORE=$(pwd)/test/testTodoList.json;export USER_STORE=$(pwd)/test/testUser.json; mocha",
     "start": "export DATA_STORE=$(pwd)/data/todoList.json;export USER_STORE=$(pwd)/data/user.json; node server.js",
-    "coverage": "export DATA_STORE=$(pwd)/test/testTodoList.json;export USER_STORE=$(pwd)/test/testUser.json; nyc mocha"
+    "coverage": "export DATA_STORE=$(pwd)/test/testTodoList.json;export USER_STORE=$(pwd)/test/testUser.json; nyc mocha",
+    "testCi": "export DATA_STORE=$(pwd)/test/testTodoList.json;export USER_STORE=$(pwd)/test/testUser.json; mocha --reporter json"
   },
   "repository": {
     "type": "git",
